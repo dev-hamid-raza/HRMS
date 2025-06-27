@@ -3,6 +3,7 @@ class ApiError extends Error {
     data: any
     message: string
     success: boolean
+    errors: unknown[]
     override stack?: string | undefined
     constructor(
         statusCode: number,
