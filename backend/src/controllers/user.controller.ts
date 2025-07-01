@@ -3,8 +3,9 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiError } from "../utils/ApiError.js"
 import { User } from "../models/user.model.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
-import { IRegisterRequestBody } from "../types/user.types.js"
+import { ILoginBody, IRegisterRequestBody } from "../types/user.types.js"
 import { generateUniqueUsername } from "../utils/username.js"
+import { generateAccessTokenAndRefreshToken } from "../lib/generateJwtToken.js"
 
 export const registerUser = asyncHandler(async (
     req: Request<{}, {}, IRegisterRequestBody>, res: Response
@@ -25,7 +26,7 @@ export const registerUser = asyncHandler(async (
     }
 
     const username = await generateUniqueUsername(firstName, lastName)
-    console.log(username,"username")
+    console.log(username, "username")
 
     const user = await User.create({
         firstName,
@@ -45,5 +46,43 @@ export const registerUser = asyncHandler(async (
         .status(201)
         .json(
             new ApiResponse(201, createdUser, "User registered successfully")
+        )
+})
+
+
+export const loginUser = asyncHandler(async (req: Request<{}, {}, ILoginBody>, res: Response) => {
+    const { email, password } = req.body
+
+    if (!(email || password)) {
+        throw new ApiError(400, "Email and password is required")
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new ApiError(404, "This user does not exist")
+    }
+
+    const isValidPassword = user.comparePassword(password)
+
+    if (!isValidPassword) {
+        throw new ApiError(400, "Invalid credentials")
+    }
+
+    const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id as number)
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(200,{user:loggedInUser},"User logged in successfully")
         )
 })
