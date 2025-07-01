@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IUser } from "../types/user.types";
+import { IUser } from "../types/user.types.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import {
@@ -7,7 +7,7 @@ import {
     JWT_ACCESS_TOKEN_SECRET,
     JWT_REFRESH_TOKEN_EXPIRY,
     JWT_REFRESH_TOKEN_SECRET
-} from "../config/env";
+} from "../config/env.js";
 
 const userSchema = new Schema<IUser>({
     username: {
@@ -25,6 +25,14 @@ const userSchema = new Schema<IUser>({
         unique: true,
         lowercase: true,
         trim: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
     },
     avatar: {
         type: String,

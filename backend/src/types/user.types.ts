@@ -15,3 +15,10 @@ export interface IUser extends Document {
     generateAccessToken(): string;
     generateRefreshToken(): string;
 }
+
+export interface IRegisterRequestBody {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
