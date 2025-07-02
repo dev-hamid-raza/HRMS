@@ -2,12 +2,7 @@ import mongoose, { Model, Schema } from "mongoose";
 import { IUser } from "../types/user.types.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import {
-    JWT_ACCESS_TOKEN_EXPIRY,
-    JWT_ACCESS_TOKEN_SECRET,
-    JWT_REFRESH_TOKEN_EXPIRY,
-    JWT_REFRESH_TOKEN_SECRET
-} from "../config/env.js";
+import { JwtExpiry } from "../types/common.types.js";
 
 const userSchema = new Schema<IUser>({
     username: {
@@ -62,15 +57,14 @@ userSchema.methods.comparePassword = async function (password: string): Promise<
 }
 
 userSchema.methods.generateAccessToken = function (): string {
-
     return jwt.sign(
         {
             _id: this._id,
             email: this.email,
         },
-        JWT_ACCESS_TOKEN_SECRET,
+        process.env.JWT_ACCESS_TOKEN_SECRET!,
         {
-            expiresIn: JWT_ACCESS_TOKEN_EXPIRY
+            expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRY as JwtExpiry
         }
     )
 }
@@ -80,9 +74,9 @@ userSchema.methods.generateRefreshToken = function () {
         {
             _id: this._id
         },
-        JWT_REFRESH_TOKEN_SECRET,
+        process.env.JWT_REFRESH_TOKEN_SECRET!,
         {
-            expiresIn: JWT_REFRESH_TOKEN_EXPIRY
+            expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRY as JwtExpiry
         }
     )
 }

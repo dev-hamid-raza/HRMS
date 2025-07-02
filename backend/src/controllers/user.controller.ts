@@ -26,7 +26,6 @@ export const registerUser = asyncHandler(async (
     }
 
     const username = await generateUniqueUsername(firstName, lastName)
-    console.log(username, "username")
 
     const user = await User.create({
         firstName,
