@@ -12,6 +12,12 @@ export const createDepartment = asyncHandler( async (req:Request<{},{},{departme
         throw new ApiError(400,'Department name is required')
     }
 
+    const existingDepartment = await Department.findOne({departmentName})
+
+    if(existingDepartment) {
+        throw new ApiError(400, 'Department already exist')
+    }
+
     const department = await Department.create({departmentName})
 
     const createdDepartment = await Department.findById(department._id)
@@ -65,6 +71,12 @@ export const updateDepartment = asyncHandler( async(req: Request<{id:string}, {}
         throw new ApiError(400, "Department name is required")
     }
 
+    const existingDepartment = await Department.findOne({departmentName})
+
+    if(existingDepartment) {
+        throw new ApiError(400, 'Department already exist')
+    }
+    
     const department = await Department.findById(id)
 
     if(!department) {
@@ -79,5 +91,21 @@ export const updateDepartment = asyncHandler( async(req: Request<{id:string}, {}
         .status(200)
         .json(
             new ApiResponse(200,department,'Department is change successfully')
+        )
+})
+
+//! Departments list
+
+export const departmentList = asyncHandler( async(req: Request, res: Response) => {
+    const departments = await Department.find()
+
+    if(!departments) {
+        throw new ApiError(500, 'Something went wrong')
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200,departments,'Departments list')
         )
 })
