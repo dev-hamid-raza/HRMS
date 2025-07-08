@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 
 import { ICounter } from "../types/common.types.js";
 
@@ -16,4 +16,4 @@ const counterSchema = new Schema<ICounter>({
     }
 });
 
-export const Counter = mongoose.model<ICounter>("Counter", counterSchema);
+export const Counter: Model<ICounter> = mongoose.model<ICounter>("Counter", counterSchema);
