@@ -5,6 +5,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { Attendance } from "../models/attendance.model.js";
 import { Employee } from "../models/employee.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { updateAttendanceSummary } from "../services/attendance.services.js";
 
 export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number }>, res: Response) => {
     const { empCode } = req.body
@@ -29,10 +30,13 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
             punches: []
         })
     }
-    console.log(attendance)
-    attendance.punches.push({ time: new Date(), type: employee.onDuty ? "OUT" : 'IN' })
+
+    attendance.punches.push({ time: new Date("2025-07-08T18:18"), type: employee.onDuty ? "OUT" : 'IN' })
     employee.onDuty = !employee.onDuty
 
+    if(!employee.onDuty) {
+        updateAttendanceSummary(attendance)
+    }
 
     await attendance.save()
     await employee.save()

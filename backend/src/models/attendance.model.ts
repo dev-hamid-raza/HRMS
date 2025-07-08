@@ -34,6 +34,11 @@ const attendanceSchema = new Schema<IAttendance>({
     totalHoursWorked: {
         type: Number,
         default: 0
+    },
+    status: {
+        type: String,
+        enum: ['A', 'P'],
+        default: 'A'
     }
 }, { timestamps: true })
 
