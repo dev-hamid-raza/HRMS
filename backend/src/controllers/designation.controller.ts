@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/ApiError";
-import { Designation } from "../models/designation.mode";
-import { ApiResponse } from "../utils/ApiResponse";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
+import { Designation } from "../models/designation.model.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 //! Create designation
 export const createDesignation = asyncHandler(async (req: Request<{}, {}, { designationName: string }>, res: Response) => {

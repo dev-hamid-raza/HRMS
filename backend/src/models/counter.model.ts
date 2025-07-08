@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { ICounter } from "../types/common.types";
+import { ICounter } from "../types/common.types.js";
 
 
 

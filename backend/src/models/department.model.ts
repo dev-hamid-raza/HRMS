@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IDepartment } from "../types/department.types";
+import { IDepartment } from "../types/department.types.js";
 
 const departmentSchema = new Schema<IDepartment>({
     departmentName : {

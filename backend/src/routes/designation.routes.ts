@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware";
-import { createDesignation, deleteDesignation, designationList, updateDesignation } from "../controllers/designation.controller";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { createDesignation, deleteDesignation, designationList, updateDesignation } from "../controllers/designation.controller.js";
 
 const router = Router()
 

@@ -1,4 +1,4 @@
-import { IApiResponse } from "../types/utils.types"
+import { IApiResponse } from "../types/utils.types.js"
 
 export class ApiResponse<T> implements IApiResponse<T> {
     statusCode: number
