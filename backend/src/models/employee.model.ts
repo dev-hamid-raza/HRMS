@@ -1,4 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
+
 import { IEmployee } from "../types/employee.types.js";
 import { Counter } from "./counter.model.js";
 

@@ -1,4 +1,5 @@
 import mongoose, {Model, Schema} from "mongoose";
+
 import { IDesignation } from "../types/designation.types.js";
 
 const designationSchema = new Schema<IDesignation>({

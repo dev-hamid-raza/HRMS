@@ -1,8 +1,9 @@
+import { Request, NextFunction } from 'express'
+import jwt, { JwtPayload } from "jsonwebtoken"
+
 import { User } from "../models/user.model.js"
 import { ApiError } from "../utils/ApiError.js"
 import { asyncHandler } from "../utils/asyncHandler.js"
-import jwt, { JwtPayload } from "jsonwebtoken"
-import { Request, NextFunction } from 'express'
 
 
 export const verifyJWT = asyncHandler(async (req: Request, _, next: NextFunction) => {
