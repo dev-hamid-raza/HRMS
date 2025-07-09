@@ -18,5 +18,5 @@ export interface IAttendance extends Document {
     checkOutTime?: Date
     isLate: boolean
     totalHoursWorked: number
-    status: 'P' | 'A'
+    status: 'P' | 'A' | 'H'
 }

@@ -37,7 +37,7 @@ const attendanceSchema = new Schema<IAttendance>({
     },
     status: {
         type: String,
-        enum: ['A', 'P'],
+        enum: ['A', 'P' , 'H'],
         default: 'A'
     }
 }, { timestamps: true })

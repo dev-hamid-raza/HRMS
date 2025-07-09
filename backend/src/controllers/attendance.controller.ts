@@ -9,12 +9,10 @@ import { updateAttendanceSummary } from "../services/attendance.services.js";
 
 export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number }>, res: Response) => {
     const { empCode } = req.body
-    const today = new Date().toISOString().split('T')[0]
 
     if (!empCode) {
         throw new ApiError(400, 'Employee code is required for punch time')
     }
-
     const employee = await Employee.findOne({ empCode })
 
     if (!employee) {
@@ -22,6 +20,17 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     }
 
     const employeeId = employee._id
+    let today: string
+
+    today = '2025-07-12'
+    // today = new Date().toISOString().split('T')[0]
+    
+    if (employee.onDuty) {
+        const attendance = await Attendance.find({ employee: employeeId })
+        today = attendance[attendance.length - 1].date
+    }
+
+
     let attendance = await Attendance.findOne({ employee: employeeId, date: today })
     if (!attendance) {
         attendance = new Attendance({
@@ -31,10 +40,10 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
         })
     }
 
-    attendance.punches.push({ time: new Date("2025-07-08T18:18"), type: employee.onDuty ? "OUT" : 'IN' })
+    attendance.punches.push({ time: new Date("2025-07-12T08:12"), type: employee.onDuty ? "OUT" : 'IN' })
     employee.onDuty = !employee.onDuty
 
-    if(!employee.onDuty) {
+    if (!employee.onDuty) {
         updateAttendanceSummary(attendance)
     }
 

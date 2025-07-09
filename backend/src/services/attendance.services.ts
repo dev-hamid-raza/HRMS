@@ -26,7 +26,11 @@ export const updateAttendanceSummary = (att: IAttendance): void => {
     const dutyStart = new Date("2025-07-08T09:15:00")
     att.isLate = dutyStart < firstCheckIn
 
-    if(totalHours > 8) {
+    if(totalHours > 7) {
         att.status = "P"
+    }
+
+    if(totalHours > 3.5 && totalHours < 7) {
+        att.status = "H"
     }
 }
