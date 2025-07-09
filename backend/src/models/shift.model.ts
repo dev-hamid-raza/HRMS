@@ -1,0 +1,30 @@
+import mongoose, { Model, Schema } from "mongoose";
+import { IShift } from "../types/shift.types.js";
+
+const shiftSchema = new Schema<IShift>({
+    shiftName: {
+        type: String,
+        required: true
+    },
+    startTime: {
+        type: Number,
+        required: true
+    },
+    endTime: {
+        type: Number,
+        required: true
+    },
+    lateInRelaxation: {
+        type: Number,
+        required: true
+    },
+    earlyOutRelaxation: {
+        type: Number,
+        required: true,
+    },
+    brakeStart: Number,
+    brakeEnd: Number,
+    totalShiftHours: Number,
+})
+
+export const Shift: Model<IShift> = mongoose.model<IShift>('Shift', shiftSchema)
