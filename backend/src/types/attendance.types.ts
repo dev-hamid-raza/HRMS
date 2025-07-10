@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose"
+import { IEmployee } from "./employee.types"
 
 export interface IPunch {
     time: Date
@@ -11,7 +12,7 @@ enum AStatus {
 }
 
 export interface IAttendance extends Document {
-    employee: mongoose.Schema.Types.ObjectId
+    employee: mongoose.Schema.Types.ObjectId | IEmployee
     date: string
     punches: IPunch[]
     checkInTime?: Date
