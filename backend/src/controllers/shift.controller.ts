@@ -16,6 +16,12 @@ export const shiftCreate = asyncHandler(async (req: Request<{}, {}, ShiftRequest
         throw new ApiError(400, 'All fields are required')
     }
 
+    const existingShift = await Shift.findOne({shiftName})
+
+    if(existingShift) {
+        throw new ApiError(400, 'This name is already exits')
+    }
+
     const startTimeInMinutes = timeStringToMinutes(startTime)
     const endTimeInMinutes = timeStringToMinutes(endTime)
     const lateInRelaxationInMinutes = timeStringToMinutes(lateInRelaxation)
