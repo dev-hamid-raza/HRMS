@@ -6,16 +6,29 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Employee } from "../models/employee.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { IEmployeeBody } from "../types/employee.types.js";
+import { Shift } from "../models/shift.model.js";
 
-export const createEmployee = asyncHandler(async (req: Request<{}, {}, { employeeName: string }>, res: Response) => {
-    const { employeeName } = req.body
+export const createEmployee = asyncHandler(async (req: Request<{}, {}, IEmployeeBody>, res: Response) => {
+    const { employeeName, shiftId } = req.body
+
+    if(!shiftId) {
+        throw new ApiError(400,'Shift is required')
+    }
+
+    const shift = await Shift.findById(shiftId)
+
+    if(!shift) {
+        throw new ApiError(400, "shift not found")
+    }
 
     if(!employeeName) {
         throw new ApiError(400, 'Employee name is required')
     }
 
     const employee = await Employee.create({
-        name: employeeName
+        name: employeeName,
+        shift: shift._id
     })
 
     if(!employee) {

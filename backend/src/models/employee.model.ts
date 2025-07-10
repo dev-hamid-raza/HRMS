@@ -15,6 +15,10 @@ const employeeSchema = new Schema<IEmployee>({
     onDuty: {
         type: Boolean,
         default: false
+    },
+    shift: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Shift'
     }
 })
 
