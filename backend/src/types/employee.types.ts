@@ -1,11 +1,11 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Types } from "mongoose";
 import { IShift } from "./shift.types.js";
 
 export interface IEmployee extends Document {
     empCode: number,
     name: string,
     onDuty: boolean,
-    shift: mongoose.Schema.Types.ObjectId | IShift
+    shift: Types.ObjectId | IShift
 }
 
 export interface IEmployeeBody {

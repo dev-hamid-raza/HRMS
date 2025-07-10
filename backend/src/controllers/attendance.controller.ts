@@ -31,7 +31,14 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     }
 
 
-    let attendance = await Attendance.findOne({ employee: employeeId, date: today })
+    let attendance = await Attendance.findOne({ employee: employeeId, date: today }).populate({
+        path: 'employee',
+        populate: {
+            path: 'shift'
+        }
+    })
+
+    console.log(attendance)
     if (!attendance) {
         attendance = new Attendance({
             employee: employeeId,

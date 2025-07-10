@@ -1,8 +1,15 @@
 import { toPKTDate } from "../lib/time";
-import { IAttendance } from "../types/attendance.types";
+
+import { IAttendance } from "../types/attendance.types.js";
+import { IEmployee } from "../types/employee.types";
+import { IShift } from "../types/shift.types";
 
 export const updateAttendanceSummary = (att: IAttendance): void => {
     const punches = att.punches.sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
+    const emp = att.employee as IEmployee
+    const shift = emp.shift as IShift
+    
+    const {lateInRelaxation, earlyOutRelaxation , totalShiftHours} = shift
 
     if(!punches.length) {
         att.status = 'A'
@@ -15,14 +22,13 @@ export const updateAttendanceSummary = (att: IAttendance): void => {
     const lastCheckOut = punches[punches.length -1].time
 
     const totalMs = lastCheckOut.getTime() - lastCheckIn.getTime()
-
     const hoursWorked = +(totalMs / 1000 / 60 / 60).toFixed(2)
     const totalHours = att.totalHoursWorked + hoursWorked
     
     att.totalHoursWorked = totalHours
 
     //* Check is late or not
-    console.log(firstCheckIn,"ias")
+    
     const dutyStart = new Date("2025-07-08T09:15:00")
     att.isLate = dutyStart < firstCheckIn
 
