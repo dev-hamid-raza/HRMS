@@ -22,7 +22,8 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     const employeeId = employee._id
     let today: string
 
-    today = '2025-07-12'
+    today = '2025-07-13'
+    const time = '09:15'
     // today = new Date().toISOString().split('T')[0]
     
     if (employee.onDuty) {
@@ -47,7 +48,7 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
         })
     }
 
-    attendance.punches.push({ time: new Date("2025-07-12T08:12"), type: employee.onDuty ? "OUT" : 'IN' })
+    attendance.punches.push({ time: new Date(`${today}T${time}`), type: employee.onDuty ? "OUT" : 'IN' })
     employee.onDuty = !employee.onDuty
 
     if (!employee.onDuty) {
