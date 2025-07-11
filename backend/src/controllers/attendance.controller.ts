@@ -7,8 +7,10 @@ import { Employee } from "../models/employee.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { updateAttendanceSummary } from "../services/attendance.services.js";
 
-export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number }>, res: Response) => {
-    const { empCode } = req.body
+//! Record punch time
+export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number, today: string, time: string }>, res: Response) => {
+    const { empCode, time } = req.body
+    let { today } = req.body
 
     if (!empCode) {
         throw new ApiError(400, 'Employee code is required for punch time')
@@ -20,11 +22,6 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     }
 
     const employeeId = employee._id
-    let today: string
-
-    today = '2025-07-13'
-    const time = '09:15'
-    // today = new Date().toISOString().split('T')[0]
     
     if (employee.onDuty) {
         const attendance = await Attendance.find({ employee: employeeId })
@@ -39,7 +36,6 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
         }
     })
 
-    console.log(attendance)
     if (!attendance) {
         attendance = new Attendance({
             employee: employeeId,
