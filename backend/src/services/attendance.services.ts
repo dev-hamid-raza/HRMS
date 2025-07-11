@@ -1,5 +1,8 @@
-import { getMinutesFromDate, toPKTDate } from "../lib/time";
+import { Types } from "mongoose";
 
+import { getMinutesFromDate } from "../lib/time";
+import { Attendance } from "../models/attendance.model";
+import { Employee } from "../models/employee.model";
 import { IAttendance } from "../types/attendance.types.js";
 import { IEmployee } from "../types/employee.types";
 import { IShift } from "../types/shift.types";
@@ -46,5 +49,35 @@ export const updateAttendanceSummary = (att: IAttendance): void => {
 
     if (totalHours > (totalShiftHours / 2 - 0.5) && totalHours < (totalShiftHours - 1) && !att.isLate) {
         att.status = "H"
+    }
+}
+
+
+
+export const markDailyAttendanceStatus = async () => {
+    try {
+        const dated = '2025-07-01'
+        const attendance = await Attendance.find({date: dated}, 'employee')
+        const employees = await Employee.find({onDuty: false}, '_id')  as { _id: Types.ObjectId }[]
+    
+        const attendedEmployeeIds = new Set(attendance.map(att => att.employee.toString()))
+    
+        console.log(attendedEmployeeIds)
+        const absentees = employees.filter(emp => !attendedEmployeeIds.has(emp._id.toString()))
+        console.log(new Date(dated).getDay(), 'this is dates effect hhas')
+        const absentRecords = absentees.map(emp => ({
+            employee: emp._id,
+            date: dated,
+            status: (new Date(dated).getDay()) === 2 ? 'L' : 'A'
+        }))
+    
+        if(absentRecords.length > 0) {
+            await Attendance.insertMany(absentRecords)
+            console.log("attendance marked")
+        } else {
+            console.log("No absentees today")
+        }
+    } catch (error) {
+        console.log("Unable to mark absentees and rest of the employee with error", error)
     }
 }

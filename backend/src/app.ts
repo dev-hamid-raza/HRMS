@@ -9,6 +9,7 @@ import designationRouter from './routes/designation.routes.js'
 import employeeRouter from './routes/employee.routes.js'
 import attendanceRouter from './routes/attendance.routes.js'
 import shiftRouter from './routes/shift.routes.js'
+import { markDailyAttendanceStatus } from "./services/attendance.services.js"
 
 
 export const app = express()
@@ -23,6 +24,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+markDailyAttendanceStatus()
 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/departments",departmentRouter)

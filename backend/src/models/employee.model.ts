@@ -19,7 +19,20 @@ const employeeSchema = new Schema<IEmployee>({
     shift: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Shift'
-    }
+    },
+    restDay: {
+        type: Number,
+        required: true
+    },
+    restQuota: {
+        type: Number,
+        default: 0
+    },
+    restUsed: {
+        type: Number,
+        default: 0
+    },
+    restMonth: String
 })
 
 
