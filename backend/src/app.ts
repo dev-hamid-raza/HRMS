@@ -10,6 +10,7 @@ import employeeRouter from './routes/employee.routes.js'
 import attendanceRouter from './routes/attendance.routes.js'
 import shiftRouter from './routes/shift.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
+import { updateMonthlyRestQuota } from "./services/employee.services.js"
 
 
 export const app = express()
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+// updateMonthlyRestQuota()
 markDailyAttendanceStatus()
 
 app.use("/api/v1/users", userRouter)

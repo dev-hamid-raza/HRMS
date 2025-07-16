@@ -56,28 +56,69 @@ export const updateAttendanceSummary = (att: IAttendance): void => {
 
 export const markDailyAttendanceStatus = async () => {
     try {
-        const dated = '2025-07-01'
-        const attendance = await Attendance.find({date: dated}, 'employee')
-        const employees = await Employee.find({onDuty: false}, '_id')  as { _id: Types.ObjectId }[]
-    
-        const attendedEmployeeIds = new Set(attendance.map(att => att.employee.toString()))
-    
-        console.log(attendedEmployeeIds)
-        const absentees = employees.filter(emp => !attendedEmployeeIds.has(emp._id.toString()))
-        console.log(new Date(dated).getDay(), 'this is dates effect hhas')
-        const absentRecords = absentees.map(emp => ({
-            employee: emp._id,
-            date: dated,
-            status: (new Date(dated).getDay()) === 2 ? 'L' : 'A'
-        }))
-    
-        if(absentRecords.length > 0) {
-            await Attendance.insertMany(absentRecords)
-            console.log("attendance marked")
-        } else {
-            console.log("No absentees today")
+        const dated = '2025-07-08';
+        const dayOfWeek = new Date(dated).getDay();
+
+        const attendance = await Attendance.find({ date: dated }, 'employee');
+        const attendedEmployeeIds = new Set(attendance.map(att => att.employee.toString()));
+
+        const employees = await Employee.find(
+            { onDuty: false },
+            '_id restDay restQuota restUsed isRandom'
+        ) as { _id: Types.ObjectId, restDay: number, restQuota: number, restUsed: number, isRandom: boolean }[];
+
+        const attendanceRecords = [];
+        const restUsedUpdates = [];
+
+        for (const emp of employees) {
+            if (attendedEmployeeIds.has(emp._id.toString())) continue;
+
+            let status: 'A' | 'L' = 'A';
+            
+            if(emp.isRandom) {
+                if (emp.restUsed < emp.restQuota) {
+                    status = 'L';
+                    // Prepare restUsed increment
+                    restUsedUpdates.push({
+                        updateOne: {
+                            filter: { _id: emp._id },
+                            update: { $inc: { restUsed: 1 } }
+                        }
+                    });
+                }
+            } else {
+                if (dayOfWeek === emp.restDay && emp.restUsed < emp.restQuota) {
+                    status = 'L';
+                    // Prepare restUsed increment
+                    restUsedUpdates.push({
+                        updateOne: {
+                            filter: { _id: emp._id },
+                            update: { $inc: { restUsed: 1 } }
+                        }
+                    });
+                }
+            }
+
+
+            attendanceRecords.push({
+                employee: emp._id,
+                date: dated,
+                status
+            });
         }
+
+        // Insert attendance records
+        if (attendanceRecords.length > 0) {
+            await Attendance.insertMany(attendanceRecords)
+        }
+
+        // Bulk update restUsed in Employee collection
+        if (restUsedUpdates.length > 0) {
+            await Employee.bulkWrite(restUsedUpdates)
+        }
+
+        console.log('Attendance marked successfully.')
     } catch (error) {
-        console.log("Unable to mark absentees and rest of the employee with error", error)
+        console.error('Failed to mark attendance:', error)
     }
 }

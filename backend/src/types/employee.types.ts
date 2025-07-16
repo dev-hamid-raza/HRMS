@@ -10,9 +10,12 @@ export interface IEmployee extends Document {
     restQuota: number
     restUsed: number
     restMonth: string
+    isRandom: boolean
 }
 
 export interface IEmployeeBody {
     employeeName: string
     shiftId: number
+    restDay: number
+    isRandom: boolean
 }

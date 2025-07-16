@@ -32,7 +32,11 @@ const employeeSchema = new Schema<IEmployee>({
         type: Number,
         default: 0
     },
-    restMonth: String
+    restMonth: String,
+    isRandom: {
+        type: Boolean,
+        default: false
+    }
 })
 
 

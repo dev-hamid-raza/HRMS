@@ -10,7 +10,7 @@ import { IEmployeeBody } from "../types/employee.types.js";
 import { Shift } from "../models/shift.model.js";
 
 export const createEmployee = asyncHandler(async (req: Request<{}, {}, IEmployeeBody>, res: Response) => {
-    const { employeeName, shiftId } = req.body
+    const { employeeName, shiftId, restDay, isRandom } = req.body
 
     if(!shiftId) {
         throw new ApiError(400,'Shift is required')
@@ -26,9 +26,14 @@ export const createEmployee = asyncHandler(async (req: Request<{}, {}, IEmployee
         throw new ApiError(400, 'Employee name is required')
     }
 
+    if(!restDay) {
+        throw new ApiError(400,"Rest day is required")
+    }
     const employee = await Employee.create({
         name: employeeName,
-        shift: shift._id
+        shift: shift._id,
+        restDay,
+        isRandom
     })
 
     if(!employee) {
