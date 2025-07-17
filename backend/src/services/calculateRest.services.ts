@@ -1,4 +1,5 @@
 import { Employee } from "../models/employee.model.js";
+import { RestData } from "../types/calculateRest.types.js";
 import { countDayInMonth } from "../utils/countDays.js";
 
 export const updateMonthlyRestQuota = async () => {
@@ -34,29 +35,28 @@ export const updateMonthlyRestQuota = async () => {
     }
 }
 
-interface RestData {
-    restQuota: number;
-    restUsed: number;
-}
 
 export const calculateRestData = (restDay: number, joiningDateStr: string): RestData => {
     const joiningDate = new Date(joiningDateStr)
     const year = joiningDate.getFullYear();
     const month = joiningDate.getMonth(); // 0-based
-    const totalRestDays = countDayInMonth(year, month, restDay);
+    const totalRestDays = countDayInMonth(year, month, +restDay);
 
     let usedRest = 0;
     const date = new Date(year, month, 1);
 
     while (date < joiningDate && date.getMonth() === month) {
-        if (usedRest <= totalRestDays) {
+        if (usedRest < totalRestDays) {
             usedRest++;
         }
         date.setDate(date.getDate() + 1);
     }
 
+    const restMonth = `${year}-${String(month + 1).padStart(2, "0")}`
+
     return {
         restQuota: totalRestDays,
-        restUsed: usedRest
+        restUsed: usedRest,
+        restMonth
     };
 };
