@@ -39,7 +39,7 @@ interface RestData {
     restUsed: number;
 }
 
-export const calculateRestData = (restDay: number, joiningDateStr: Date): RestData => {
+export const calculateRestData = (restDay: number, joiningDateStr: string): RestData => {
     const joiningDate = new Date(joiningDateStr)
     const year = joiningDate.getFullYear();
     const month = joiningDate.getMonth(); // 0-based
