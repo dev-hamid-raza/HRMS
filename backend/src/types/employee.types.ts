@@ -2,9 +2,33 @@ import mongoose, { Document, Types } from "mongoose";
 import { IShift } from "./shift.types.js";
 
 export interface IEmployee extends Document {
-    empCode: number,
-    name: string,
-    onDuty: boolean,
+    empCode: number
+    firstName: string
+    lastName: string
+    fatherName: string
+    dateOfBirthday: string
+    dateOfJoining: string,
+    dateOfConfirmation: string
+    replace?: number
+    cnic: string
+    religion: 'islam' | 'christian' | 'hindu' | 'sikh'
+    martialStatus: 'married' | 'single'
+    gender: 'male' | 'female' | 'other'
+    reference: 'string'
+    phoneNumber: string
+    emgPhoneNumber: string
+    permanentAddress: string
+    tempAddress: string
+    BloodGroup: string
+    onDuty: boolean
+    salary: number
+    qualification: string
+    overTimeAllowed: boolean
+    status: 'on duty' | 'terminate' | 'quite'
+    salaryType: 'daily' | 'monthly'
+    empType: Types.ObjectId
+    designation: Types.ObjectId
+    department: Types.ObjectId
     shift: Types.ObjectId | IShift
     restDay: number
     restQuota: number
@@ -14,8 +38,31 @@ export interface IEmployee extends Document {
 }
 
 export interface IEmployeeBody {
-    employeeName: string
-    shiftId: number
+    firstName: string
+    lastName: string
+    fatherName: string
+    dateOfBirthday: string
+    dateOfJoining: string,
+    dateOfConfirmation: string
+    replace?: number
+    cnic: string
+    religion: 'islam' | 'christian' | 'hindu' | 'sikh'
+    martialStatus: 'married' | 'single'
+    gender: 'male' | 'female' | 'other'
+    reference?: 'string'
+    phoneNumber: string
+    emgPhoneNumber: string
+    permanentAddress: string
+    tempAddress: string
+    BloodGroup: string
+    salary: number
+    qualification: string
+    overTimeAllowed: boolean
+    salaryType: 'daily' | 'monthly'
+    empType: Types.ObjectId
+    designation: Types.ObjectId
+    department: Types.ObjectId
+    shift: Types.ObjectId | IShift
     restDay: number
     isRandom: boolean
 }

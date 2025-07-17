@@ -11,7 +11,7 @@ import attendanceRouter from './routes/attendance.routes.js'
 import shiftRouter from './routes/shift.routes.js'
 import empTypeRouter from './routes/employeeType.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
-import { updateMonthlyRestQuota } from "./services/employee.services.js"
+import { updateMonthlyRestQuota } from "./services/calculateRest.services.js"
 
 
 export const app = express()
