@@ -9,6 +9,7 @@ import designationRouter from './routes/designation.routes.js'
 import employeeRouter from './routes/employee.routes.js'
 import attendanceRouter from './routes/attendance.routes.js'
 import shiftRouter from './routes/shift.routes.js'
+import empTypeRouter from './routes/employeeType.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
 import { updateMonthlyRestQuota } from "./services/employee.services.js"
 
@@ -26,7 +27,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 // updateMonthlyRestQuota()
-markDailyAttendanceStatus()
+// markDailyAttendanceStatus()
 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/departments",departmentRouter)
@@ -34,3 +35,4 @@ app.use("/api/v1/designations",designationRouter)
 app.use("/api/v1/employees", employeeRouter)
 app.use("/api/v1/attendance", attendanceRouter)
 app.use("/api/v1/shift", shiftRouter)
+app.use("/api/v1/emp-type", empTypeRouter)
