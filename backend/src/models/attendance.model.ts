@@ -22,7 +22,7 @@ const attendanceSchema = new Schema<IAttendance>({
     },
     punches: [punchSchema],
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     checkInTime: Date,

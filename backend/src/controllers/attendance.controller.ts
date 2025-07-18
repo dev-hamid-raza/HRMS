@@ -9,10 +9,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { updateAttendanceSummary } from "../services/attendance.services.js";
 
 //! Record punch time
-export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number, today: string, time: string }>, res: Response) => {
-    const { empCode, time } = req.body
-    let { today } = req.body
+export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: number, timeStamp: string }>, res: Response) => {
+    const { empCode, timeStamp } = req.body
 
+    let today = new Date(timeStamp)
     if (!empCode) {
         throw new ApiError(400, 'Employee code is required for punch time')
     }
@@ -45,7 +45,7 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
         })
     }
 
-    attendance.punches.push({ time: new Date(`${today}T${time}`), type: employee.onDuty ? "OUT" : 'IN' })
+    attendance.punches.push({ time: new Date(timeStamp), type: employee.onDuty ? "OUT" : 'IN' })
     employee.onDuty = !employee.onDuty
 
     if (!employee.onDuty) {

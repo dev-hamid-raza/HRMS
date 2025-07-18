@@ -41,12 +41,10 @@ export const calculateRestData = (restDay: number, joiningDateStr: string): Rest
     const year = joiningDate.getFullYear();
     const month = joiningDate.getMonth(); // 0-based
     const totalRestDays = countDayInMonth(year, month, +restDay);
-
     let usedRest = 0;
-    const date = new Date(year, month, 1);
-
+    const date = new Date(Date.UTC(year, month, 1))
     while (date < joiningDate && date.getMonth() === month) {
-        if (usedRest < totalRestDays) {
+        if (date.getDay() === +restDay) {
             usedRest++;
         }
         date.setDate(date.getDate() + 1);

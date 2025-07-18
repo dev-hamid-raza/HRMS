@@ -13,7 +13,7 @@ enum AStatus {
 
 export interface IAttendance extends Document {
     employee: Types.ObjectId | IEmployee
-    date: string
+    date: Date
     punches: IPunch[]
     checkInTime?: Date
     checkOutTime?: Date
