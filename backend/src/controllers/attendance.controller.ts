@@ -61,3 +61,32 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
             new ApiResponse(201, { onDuty: employee.onDuty }, "Successfully punch recorded")
         )
 })
+
+
+export const getPunches = asyncHandler(async (req: Request<{},{},{},{startDate:string, endDate: string}>, res: Response) => {
+    const { startDate, endDate } = req.query
+
+    if(!startDate || ! endDate) {
+        throw new ApiError(400, 'Start and ending date is required')
+    }
+
+    const fromDate = new Date(startDate)
+    const toDate = new Date(endDate)
+
+    const results = await Attendance.find({
+        date: {
+            $gte: fromDate,
+            $lte: toDate
+        }
+    })
+
+    if(!results) {
+        throw new ApiError(500, 'Something went wrong while fetching punch report')
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, results, "here is data")
+        )
+})
