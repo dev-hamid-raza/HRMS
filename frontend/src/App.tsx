@@ -1,9 +1,16 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { routes } from "@/routes"
+import { Toaster } from "sonner"
+
+const router = createBrowserRouter(routes)
 
 function App() {
 
   return (
-    
-    <h1 className="text-danger">Hello G</h1>
+    <>
+    <Toaster position="top-right"/>
+      <RouterProvider router={router} />
+    </>
   )
 }
 

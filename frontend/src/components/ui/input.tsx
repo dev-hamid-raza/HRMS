@@ -5,6 +5,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 	hasError?: boolean;
 	inputClassName?: string;
     labelClassName?: string
+	label?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -16,6 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		inputClassName,
         labelClassName,
         id,
+		label,
 		...props
 	}) => {
 		const [value, setValue] = useState('');
@@ -27,7 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     'text-text-700 body-primary-sm-medium',
                     labelClassName
                 )}
-                >Email</label>
+                >{label}</label>
 				<input
                     id={id}
 					type={type}
@@ -38,8 +40,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						props.onChange?.(e);
 					}}
                     className={cn(
-                        'flex items-center h-10 rounded-md py-1 px-3 border',
-                        'body-primary-md-regular text-text-700',
+                        'flex items-center h-10 rounded-md py-1 px-3 border w-full',
+                        'body-primary-lg-regular text-text-700',
                         'transition-all ease-in-out duration-200',
                         'focus-visible:outline-none',
                         hasError 
