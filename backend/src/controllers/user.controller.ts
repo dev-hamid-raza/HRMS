@@ -60,13 +60,13 @@ export const loginUser = asyncHandler(async (req: Request<{}, {}, ILoginBody>, r
     const user = await User.findOne({ username })
 
     if (!user) {
-        throw new ApiError(400, "This user does not exist")
+        throw new ApiError(400, "Invalid username")
     }
     
     const isValidPassword = await user.comparePassword(password)
 
     if (!isValidPassword) {
-        throw new ApiError(400, "Invalid credentials")
+        throw new ApiError(400, "Invalid password")
     }
     console.log(isValidPassword)
     const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id as number)
