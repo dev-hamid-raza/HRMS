@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import dotenv from "dotenv"
 
 // import routes
 import userRouter from './routes/user.routes.js'
@@ -13,6 +14,9 @@ import empTypeRouter from './routes/employeeType.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
 import { updateMonthlyRestQuota } from "./services/calculateRest.services.js"
 
+dotenv.config({
+    path: './.env'
+})
 
 export const app = express()
 
