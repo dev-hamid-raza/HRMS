@@ -1,12 +1,12 @@
-import Header from '@/common/Header';
+import Header from '@/components/common/Header';
 import React from 'react';
-import { Table } from '@/common/PrimaryTable';
+import { Table } from '@/components/common/PrimaryTable';
 
 function Departments() {
 	type Employee = {
 		name: string;
-		designation: string;
-		department: string;
+		// designation: string;
+		// department: string;
 	};
 
 	interface Column<T> {
@@ -16,13 +16,15 @@ function Departments() {
 	}
 
 	const employees: Employee[] = [
-		{ name: 'Hamid Raza', designation: 'Developer', department: 'Engineering' },
-		{ name: 'Aisha Khan', designation: 'Designer', department: 'UI/UX' },
+		{ name: 'Hamid Raza',  },
+		{ name: 'Aisha Khan',  },
+
+		
 	];
 
 	const columns: Column<Employee>[] = [
 		{ header: 'Name', accessor: 'name' },
-		{ header: 'Designation', accessor: 'designation' },
+		// { header: 'Designation', accessor: 'designation' },
 		{
 			header: 'Actions',
 			accessor: (row: Employee) => (
@@ -43,7 +45,14 @@ function Departments() {
 			),
 		},
 	];
-	return <Table columns={columns} data={employees} />;
+	return (
+		<div className='w-ful space-y-6'>
+			<Header title='Departments' buttonText='Create' />
+			<div className='px-4'>
+			<Table columns={columns} data={employees} />
+			</div>
+		</div>
+	);
 }
 
 export default Departments;

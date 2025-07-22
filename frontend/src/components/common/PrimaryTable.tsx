@@ -23,7 +23,7 @@ export function Table<T>({
 }: TableProps<T>) {
 	return (
 		<div
-			className={`overflow-x-auto w-full border border-border-300 rounded-md ${className}`}
+			className={`overflow-x-auto w-full border-y  border-border-300 ${className}`}
 		>
 			<table className='min-w-full divide-y divide-gray-200'>
 				<thead className='bg-surface-100'>
@@ -58,7 +58,11 @@ export function Table<T>({
 											key={colIndex}
 											className='px-6 py-4 text-sm text-gray-800'
 										>
-											{String(value)}
+											{React.isValidElement(value) ||
+											typeof value === 'string' ||
+											typeof value === 'number'
+												? value
+												: String(value ?? '')}
 										</td>
 									);
 								})}

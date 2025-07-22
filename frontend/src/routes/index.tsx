@@ -1,5 +1,5 @@
-import { LazyLoad } from "@/common/LazyLoad";
-import MainLayout from "@/layout/MainLayout";
+import { LazyLoad } from "@/components/common/LazyLoad";
+import MainLayout from "@/components/layout/MainLayout";
 import { ROUTES } from "@/lib/constants/routes";
 import { lazy } from "react";
 import type { RouteObject } from "react-router-dom";
