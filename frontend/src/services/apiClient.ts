@@ -1,23 +1,29 @@
+import type { AxiosResponse } from "axios"
 import { axiosInstance } from "./axiosInstance"
+import type { GetApiResponse, PostApiParams } from "@/types/api.types"
 
 
-type RequestOptions = {
-    params?: Record<string, string | number | boolean>
+
+export const getApi = async <T>({
+    url,
+    options = {},
+    data = {}
+}: GetApiResponse
+): Promise<AxiosResponse<T>> => {
+    return axiosInstance.get<T>(url, {
+        params: data,
+        ...options
+    })
 }
 
-export const getApi = async <ResponseType>(
-    url: string,
-    options: RequestOptions = {}
-): Promise<ResponseType> => {
-    const response = await axiosInstance.get<ResponseType>(url, options)
-    return response.data
-}
-
-export const postApi = async<BodyType, ResponseType> (
-    url: string,
-    data: BodyType,
-    options: RequestOptions = {}
-): Promise<ResponseType> => {
-    const response = await axiosInstance.post<ResponseType>(url, data, options)
-    return response.data
+export const postApi = <T>({
+    url,
+    body = {},
+    data = {},
+    options = {}
+}: PostApiParams): Promise<AxiosResponse<T>> => {
+    return axiosInstance.post<T>(url,body,{
+        data,
+        ...options
+    })
 }

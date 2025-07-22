@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import dotenv from "dotenv"
 
 // import routes
 import userRouter from './routes/user.routes.js'
@@ -12,7 +13,11 @@ import shiftRouter from './routes/shift.routes.js'
 import empTypeRouter from './routes/employeeType.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
 import { updateMonthlyRestQuota } from "./services/calculateRest.services.js"
+import { errorHandler } from "./middlewares/errorHandler.js"
 
+dotenv.config({
+    path: './.env'
+})
 
 export const app = express()
 
@@ -36,3 +41,5 @@ app.use("/api/v1/employees", employeeRouter)
 app.use("/api/v1/attendance", attendanceRouter)
 app.use("/api/v1/shift", shiftRouter)
 app.use("/api/v1/emp-type", empTypeRouter)
+
+app.use(errorHandler)

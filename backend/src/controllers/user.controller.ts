@@ -51,22 +51,22 @@ export const registerUser = asyncHandler(async (
 
 
 export const loginUser = asyncHandler(async (req: Request<{}, {}, ILoginBody>, res: Response) => {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    if (!(email || password)) {
+    if (!username || !password) {
         throw new ApiError(400, "Email and password is required")
     }
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ username })
 
     if (!user) {
-        throw new ApiError(404, "This user does not exist")
+        throw new ApiError(400, "Invalid username")
     }
-
-    const isValidPassword = user.comparePassword(password)
+    
+    const isValidPassword = await user.comparePassword(password)
 
     if (!isValidPassword) {
-        throw new ApiError(400, "Invalid credentials")
+        throw new ApiError(400, "Invalid password")
     }
 
     const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(user._id as number)
