@@ -52,7 +52,12 @@ const Login = () => {
 	return (
 		<div className='bg-surface-100 h-screen flex justify-center items-center'>
 			<div className='w-[400px] bg-surface-50 shadow px-3 py-7 rounded-md'>
-				<h1 className='heading-primary-lg-semibold mb-7'>Login</h1>
+				<div className='flex justify-center pb-10'>
+					<img 
+					src={logo} 
+					alt="ayan-logo"
+					className='w-36' />
+				</div>
 				<form>
 					<div className='space-y-3.5'>
 						<Input

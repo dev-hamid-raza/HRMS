@@ -19,7 +19,7 @@ const variantClasses: Record<Variant, string> = {
 }
 
 const sizeClasses: Record<Size, string> ={
-    sm: 'py-1.5 px-2 h-9 body-primary-md-semibold',
+    sm: 'py-1.5 px-2 h-11 body-primary-md-semibold',
     md: 'py-2.5 px-3 body-primary-lg-bold',
     lg: 'py-2.5 px-4 body-primary-lg-bold',
 }
