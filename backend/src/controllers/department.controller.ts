@@ -12,7 +12,7 @@ export const createDepartment = asyncHandler( async (req:Request<{},{},{departme
     if(!departmentName) {
         throw new ApiError(400,'Department name is required')
     }
-
+    setInterval(() => {}, 10000)
     const existingDepartment = await Department.findOne({departmentName})
 
     if(existingDepartment) {
@@ -98,7 +98,7 @@ export const updateDepartment = asyncHandler( async(req: Request<{id:string}, {}
 //! Departments list
 
 export const departmentList = asyncHandler( async(req: Request, res: Response) => {
-    const departments = await Department.find()
+    const departments = await Department.find().select('_id departmentName')
 
     if(!departments) {
         throw new ApiError(500, 'Something went wrong')

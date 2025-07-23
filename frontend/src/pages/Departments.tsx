@@ -1,56 +1,92 @@
 import Header from '@/components/common/Header';
-import React from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Table } from '@/components/common/PrimaryTable';
+import type { Department } from '@/types/department.types';
+import type { Column } from '@/types/table.types';
+import useFetchFn from '@/hooks/useFetch';
+import { createDepartment, fetchDepartments } from '@/services/deparment';
+import { toast } from 'sonner';
+import usePostFn from '@/hooks/usePostFn';
+import Loader from '@/components/common/Loader';
+import { Pen, PenBox, PenBoxIcon, Trash, Trash2, Trash2Icon } from 'lucide-react';
+
+const PrimaryInputDialog = lazy(
+	() => import('@/components/common/PrimaryInputDialog')
+);
 
 function Departments() {
-	type Employee = {
-		name: string;
-		// designation: string;
-		// department: string;
-	};
+	const [open, setOpen] = useState(false);
+	const { data, error, loading, refetch } = useFetchFn(fetchDepartments);
+	const { postData, loading: postLoading } = usePostFn(createDepartment);
+	const [departmentName, setDepartmentName] = useState('');
 
-	interface Column<T> {
-		header: string;
-		accessor: keyof T | ((row: T) => React.ReactNode); // ✅ Accepts string key or function
-		className?: string;
+	if (error) {
+		toast.error(error);
 	}
 
-	const employees: Employee[] = [
-		{ name: 'Hamid Raza',  },
-		{ name: 'Aisha Khan',  },
+	const departments: Department[] = data?.data || [];
 
-		
-	];
-
-	const columns: Column<Employee>[] = [
-		{ header: 'Name', accessor: 'name' },
-		// { header: 'Designation', accessor: 'designation' },
+	const columns: Column<Department>[] = [
+		{ header: 'Name', accessor: 'departmentName' },
 		{
 			header: 'Actions',
-			accessor: (row: Employee) => (
+			accessor: (row: Department) => (
 				<div className='flex gap-2'>
 					<button
-						className='text-blue-500'
-						onClick={() => alert('Edit ' + row.name)}
+						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600'
+						onClick={() => alert('Edit ' + row._id)}
 					>
-						Edit
+						<PenBoxIcon />
 					</button>
 					<button
-						className='text-red-500'
-						onClick={() => alert('Delete ' + row.name)}
+						className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700'
+						onClick={() => alert('Delete ' + row._id)}
 					>
-						Delete
+						<Trash2 />
 					</button>
 				</div>
 			),
 		},
 	];
+
+	const handleSubmit = async () => {
+		console.log(departmentName);
+		try {
+			const res = await postData({ departmentName });
+			if(res.success) {
+				refetch()
+				toast.success("Department created successfully")
+				setOpen(false)
+			}
+		} catch (error) {
+			toast.error(error as string);
+		}
+	};
+
 	return (
-		<div className='w-ful space-y-6'>
-			<Header title='Departments' buttonText='Create' />
-			<div className='px-4'>
-			<Table columns={columns} data={employees} />
+		<div className='w-ful flex h-screen flex-col space-y-6'>
+			<Header
+				title='Departments'
+				buttonText='Create'
+				onChange={() => setOpen(true)}
+			/>
+			<div className='flex-1 overflow-hidden'>
+				{loading ? <Loader /> : <Table className='h-full' columns={columns} data={departments} />}
 			</div>
+			<Suspense>
+				<PrimaryInputDialog
+					title='Department'
+					description='The department name must be unique'
+					label='Department name'
+					placeholder='Enter new department name'
+					open={open}
+					isDisabled={postLoading}
+					onClose={() => setOpen(false)}
+					onAction={handleSubmit}
+					inputValue={departmentName}
+					setInputValue={(e) => setDepartmentName(e)}
+				/>
+			</Suspense>
 		</div>
 	);
 }

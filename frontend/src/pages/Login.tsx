@@ -13,7 +13,7 @@ import logo from "@/assets/svgs/logo.svg"
 const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const { postData, loading } = usePostFn(login);
+	const { postData, loading, error } = usePostFn(login);
 	const [errors, setErrors] = useState({
 		usernameError: false,
 		passwordError: false,
@@ -35,6 +35,7 @@ const Login = () => {
 		}
 		try {
 			const res = await postData({ password, username });
+			console.log(error)
 			const user = res.data;
 			setUser(user);
 			toast.success('Login successfully')

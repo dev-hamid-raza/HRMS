@@ -26,12 +26,12 @@ export function Table<T>({
 			className={`overflow-x-auto w-full border-y  border-border-300 ${className}`}
 		>
 			<table className='min-w-full divide-y divide-gray-200'>
-				<thead className='bg-surface-100'>
+				<thead className='bg-surface-100 sticky top-0'>
 					<tr>
 						{columns.map((col, idx) => (
 							<th
 								key={idx}
-								className={`px-6 py-3 text-left text-sm font-medium text-gray-700 ${
+								className={`px-8 py-3 text-left text-sm font-medium text-gray-700 ${
 									col.className || ''
 								}`}
 							>
@@ -56,7 +56,7 @@ export function Table<T>({
 									return (
 										<td
 											key={colIndex}
-											className='px-6 py-4 text-sm text-gray-800'
+											className='px-8 py-4 text-sm text-gray-800'
 										>
 											{React.isValidElement(value) ||
 											typeof value === 'string' ||
