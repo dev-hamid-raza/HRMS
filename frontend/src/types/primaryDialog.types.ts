@@ -1,4 +1,4 @@
-export type PrimaryDeleteDialogProps = {
+export type PrimaryInoutDialogProps = {
     open: boolean
     onClose: () => void
     onAction: () => void
@@ -10,3 +10,12 @@ export type PrimaryDeleteDialogProps = {
     inputValue: string,
     setInputValue: (value: string) => void
 };
+
+export type PrimaryDeleteDialogProps = {
+    open: boolean
+    onClose: () => void
+    onAction: () => void
+    title: string;
+    isDisabled: boolean
+    description: string
+}

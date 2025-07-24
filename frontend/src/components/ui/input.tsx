@@ -18,9 +18,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         labelClassName,
         id,
 		label,
+		value,
 		...props
 	}) => {
-		const [value, setValue] = useState('');
+		const [inValue, setValue] = useState(value);
 		return (
 			<div className={cn('w-full', className)}>
                 <label 
@@ -34,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     id={id}
 					type={type}
 					placeholder={placeholder}
-					value={value}
+					value={inValue}
 					onChange={(e) => {
 						setValue(e.target.value);
 						props.onChange?.(e);
