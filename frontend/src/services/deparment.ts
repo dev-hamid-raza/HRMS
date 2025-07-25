@@ -1,4 +1,4 @@
-import { DEPARTMENT_API } from "@/lib/constants/api/deparment"
+import { DEPARTMENT_API } from "@/lib/constants/api/department"
 import { getApi, postApi } from "./apiClient"
 import type { DepartmentResponse } from "@/types/department.types"
 import { axiosInstance } from "./axiosInstance"
