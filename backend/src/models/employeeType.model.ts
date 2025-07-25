@@ -4,7 +4,8 @@ import { IEmployeeType } from "../types/employeeType.types";
 const employeeTypeSchema = new Schema<IEmployeeType>({
     empType: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 }, {timestamps: true})
 
