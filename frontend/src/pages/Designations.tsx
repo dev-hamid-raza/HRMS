@@ -37,7 +37,7 @@ function Designations() {
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchDesignations, { search: searchQuery });
+	} = useFetchFn(fetchDesignations, { search: searchQuery }, [searchQuery]);
 	const { postData, loading: postLoading } = usePostFn(createDesignation);
 	const [designationName, setDesignationName] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -56,7 +56,6 @@ function Designations() {
 				setSearchParams({});
 			}
 
-			refetch({ search: searchQuery });
 		}, 300);
 
 		return () => clearTimeout(debounce);

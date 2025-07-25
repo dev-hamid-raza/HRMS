@@ -37,7 +37,7 @@ function Departments() {
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchDepartments, {search: searchQuery});
+	} = useFetchFn(fetchDepartments, {search: searchQuery},[searchQuery]);
 	const { postData, loading: postLoading } = usePostFn(createDepartment);
 	const [departmentName, setDepartmentName] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -57,7 +57,6 @@ function Departments() {
 				setSearchParams({});
 			}
 	
-			refetch({ search: searchQuery });
 		}, 300);
 	
 		return () => clearTimeout(debounce);
