@@ -6,6 +6,7 @@ import buildingUserIcon from '@/assets/icons/building-user.svg'
 import badgeIcon from '@/assets/icons/badge.svg'
 import draftIcon from '@/assets/icons/draft.svg'
 import timeSquareIcon from '@/assets/icons/time-square.svg'
+import typeIcon from '@/assets/icons/type-hierarchy.svg'
 
 interface Link {
   linkName: string,
@@ -39,6 +40,12 @@ function Sidebar() {
       path: '/attendance',
       icon: draftIcon,
       iconAlt: 'draft-icon'
+    },
+    {
+      linkName: "Employee Types",
+      path: '/employee-types',
+      icon: typeIcon,
+      iconAlt: 'type-icon'
     },
     {
       linkName: "Shift",

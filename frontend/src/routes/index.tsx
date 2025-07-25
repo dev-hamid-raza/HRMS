@@ -8,6 +8,7 @@ const LoginPage = lazy(() => import("@/pages/Login"))
 const DashboardPage = lazy(() => import('@/pages/Dashboard'))
 const DepartmentsPage = lazy(() => import('@/pages/Departments'))
 const DesignationsPage = lazy(() => import('@/pages/Designations'))
+const EmployeeTypesPage = lazy(() => import('@/pages/EmployeeTypes'))
 
 export const routes: RouteObject[] = [
     {
@@ -29,6 +30,10 @@ export const routes: RouteObject[] = [
             {
                 path: ROUTES.DESIGNATIONS,
                 element: LazyLoad(DesignationsPage)
+            },
+            {
+                path: ROUTES.EMP_TYPES,
+                element: LazyLoad(EmployeeTypesPage)
             },
         ]
     }

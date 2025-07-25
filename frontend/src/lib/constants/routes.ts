@@ -3,4 +3,5 @@ export const ROUTES = {
     DASHBOARD: 'dashboard',
     DEPARTMENTS: 'departments',
     DESIGNATIONS: 'designations',
+    EMP_TYPES: 'employee-types',
 }
