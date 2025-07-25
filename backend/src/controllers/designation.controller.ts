@@ -87,7 +87,17 @@ export const updateDesignation = asyncHandler(async (req: Request<{ id: string }
 //! Designation list
 
 export const designationList = asyncHandler(async(req: Request, res: Response) => {
-    const designations = await Designation.find()
+
+    const search = req.query.search as string;
+
+	let query = {};
+	if (search) {
+		query = {
+			designationName: { $regex: search, $options: "i" },
+		};
+	}
+
+    const designations = await Designation.find(query).select("designationName")
 
     if(!designations) {
         throw new ApiError(500, 'something went wrong')
