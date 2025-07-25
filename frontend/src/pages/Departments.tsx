@@ -9,7 +9,7 @@ import {
 	deleDepartment,
 	fetchDepartments,
 	updateDepartment,
-} from '@/services/deparment';
+} from '@/services/department';
 import { toast } from 'sonner';
 import usePostFn from '@/hooks/usePostFn';
 import Loader from '@/components/common/Loader';
