@@ -97,16 +97,21 @@ export const updateDepartment = asyncHandler( async(req: Request<{id:string}, {}
 
 //! Departments list
 
-export const departmentList = asyncHandler( async(req: Request, res: Response) => {
-    const departments = await Department.find().select('_id departmentName')
+export const departmentList = asyncHandler(async (req: Request, res: Response) => {
+	const search = req.query.search as string;
 
-    if(!departments) {
-        throw new ApiError(500, 'Something went wrong')
-    }
+	let query = {};
+	if (search) {
+		query = {
+			departmentName: { $regex: search, $options: "i" },
+		};
+	}
 
-    return res
-        .status(200)
-        .json(
-            new ApiResponse(200,departments,'Departments list')
-        )
-})
+	const departments = await Department.find(query).select("_id departmentName");
+
+	if (!departments) {
+		throw new ApiError(500, "Something went wrong");
+	}
+
+	return res.status(200).json(new ApiResponse(200, departments, "Departments list"));
+});

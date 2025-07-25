@@ -4,9 +4,12 @@ import type { DepartmentResponse } from "@/types/department.types"
 import { axiosInstance } from "./axiosInstance"
 import type { ApiResponse } from "@/types/api.types"
 
-export const fetchDepartments = async () => {
+export const fetchDepartments = async (params?: {search: string}) => {
     const res = await getApi<DepartmentResponse>({
-        url: DEPARTMENT_API.LIST
+        url: DEPARTMENT_API.LIST,
+        data: {
+            ...params
+        }
     })
     return res.data
 }

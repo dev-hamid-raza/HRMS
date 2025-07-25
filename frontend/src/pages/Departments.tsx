@@ -1,5 +1,5 @@
 import Header from '@/components/common/Header';
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Table } from '@/components/common/PrimaryTable';
 import type { Department } from '@/types/department.types';
 import type { Column } from '@/types/table.types';
@@ -16,6 +16,7 @@ import Loader from '@/components/common/Loader';
 import { PenBoxIcon, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const PrimaryInputDialog = lazy(
 	() => import('@/components/common/PrimaryInputDialog')
@@ -26,12 +27,17 @@ const PrimaryDeleteDialog = lazy(
 
 function Departments() {
 	const [open, setOpen] = useState(false);
+	const [ searchParams, setSearchParams] = useSearchParams()
+	
+	const initialQuery = searchParams.get("search") || ''
+
+	const [searchQuery, setSearchQuery] = useState(initialQuery);
 	const {
 		data,
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchDepartments);
+	} = useFetchFn(fetchDepartments, {search: searchQuery});
 	const { postData, loading: postLoading } = usePostFn(createDepartment);
 	const [departmentName, setDepartmentName] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -41,6 +47,21 @@ function Departments() {
 	const { postData: updatePostData, loading: updateLoading } = usePostFn(
 		(id: number) => updateDepartment(departmentName, id)
 	);
+
+	useEffect(() => {
+		const debounce = setTimeout(() => {
+
+			if (searchQuery) {
+				setSearchParams({ search: searchQuery });
+			} else {
+				setSearchParams({});
+			}
+	
+			refetch({ search: searchQuery });
+		}, 300);
+	
+		return () => clearTimeout(debounce);
+	}, [searchQuery]);
 
 	if (error) {
 		toast.error(error);
@@ -117,7 +138,6 @@ function Departments() {
 	const handleUpdate = async () => {
 		if (!department) return;
 		try {
-			
 			const res = await updatePostData(department._id);
 			if (res.success) {
 				toast.success('Department name change successfully');
@@ -135,16 +155,21 @@ function Departments() {
 				title='Departments'
 				buttonText='Create'
 				onChange={() => {
-					setDepartmentName('')
-					setOpen(true)
+					setDepartmentName('');
+					setOpen(true);
 				}}
 			/>
 			<div className='px-8 w-85'>
-				<Input placeholder='Search the department' />
+				<Input placeholder='Search the department'
+				value={searchQuery}
+				onChange={(e) => setSearchQuery(e.target.value)}
+				/>
 			</div>
 			<div className='flex-1 overflow-hidden'>
 				{fetchLoading ? (
-					<Loader />
+					<div className='h-full flex justify-center items-center'>
+						<Loader className='border-primary-800' />
+					</div>
 				) : (
 					<Table className='h-full' columns={columns} data={departments} />
 				)}
