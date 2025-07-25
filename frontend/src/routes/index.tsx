@@ -7,6 +7,7 @@ import type { RouteObject } from "react-router-dom";
 const LoginPage = lazy(() => import("@/pages/Login"))
 const DashboardPage = lazy(() => import('@/pages/Dashboard'))
 const DepartmentsPage = lazy(() => import('@/pages/Departments'))
+const DesignationsPage = lazy(() => import('@/pages/Designations'))
 
 export const routes: RouteObject[] = [
     {
@@ -24,6 +25,10 @@ export const routes: RouteObject[] = [
             {
                 path: ROUTES.DEPARTMENTS,
                 element: LazyLoad(DepartmentsPage)
+            },
+            {
+                path: ROUTES.DESIGNATIONS,
+                element: LazyLoad(DesignationsPage)
             },
         ]
     }
