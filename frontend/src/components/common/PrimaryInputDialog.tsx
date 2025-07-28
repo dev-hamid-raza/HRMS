@@ -22,40 +22,46 @@ export default function PrimaryInputDialog({
 	onAction,
 	placeholder,
 	inputValue,
-	setInputValue
+	setInputValue,
 }: PrimaryInoutDialogProps) {
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<form>
-				<DialogContent className='sm:max-w-[425px]'>
+			<DialogContent className='sm:max-w-[425px]'>
+				<form
+					className='space-y-4'
+					onSubmit={(e) => {
+						e.preventDefault();
+						onAction();
+					}}
+				>
 					<DialogHeader>
 						<DialogTitle>{title}</DialogTitle>
-						<DialogDescription>
-							{description}
-						</DialogDescription>
+						<DialogDescription>{description}</DialogDescription>
 					</DialogHeader>
 					<div className='grid gap-4'>
 						<div className='grid gap-3'>
-							<Input 
-							label={label}
-							value={inputValue}
-							onChange={(e) => setInputValue(e.target.value)} 
-							placeholder={placeholder} />
+							<Input
+								label={label}
+								value={inputValue}
+								onChange={(e) => setInputValue(e.target.value)}
+								placeholder={placeholder}
+							/>
 						</div>
 					</div>
 					<DialogFooter>
 						<DialogClose asChild>
 							<Button variant='secondary'>Cancel</Button>
 						</DialogClose>
-						<Button 
-						disabled={isDisabled}
-						onClick={onAction}
+						<Button
+							type='submit'
+							disabled={isDisabled}
+							// onClick={onAction}
 						>
-							{isDisabled ? <Loader /> : "Save Changes"}
+							{isDisabled ? <Loader /> : 'Save Changes'}
 						</Button>
 					</DialogFooter>
-				</DialogContent>
-			</form>
+				</form>
+			</DialogContent>
 		</Dialog>
 	);
 }

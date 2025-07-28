@@ -48,8 +48,8 @@ function Sidebar() {
       iconAlt: 'type-icon'
     },
     {
-      linkName: "Shift",
-      path: '/shift',
+      linkName: "Shifts",
+      path: '/shifts',
       icon: timeSquareIcon,
       iconAlt: 'time-square-icon'
     },
