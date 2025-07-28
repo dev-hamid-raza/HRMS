@@ -7,6 +7,7 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { ILoginBody, IRegisterRequestBody } from "../types/user.types.js"
 import { generateUniqueUsername } from "../utils/username.js"
 import { generateAccessTokenAndRefreshToken } from "../lib/generateJwtToken.js"
+import { constants } from "fs/promises"
 
 export const registerUser = asyncHandler(async (
     req: Request<{}, {}, IRegisterRequestBody>, res: Response
@@ -111,5 +112,13 @@ export const logoutUser = asyncHandler ( async (req: Request, res: Response) => 
         .clearCookie('refreshToken', options)
         .json(
             new ApiResponse(200, {}, 'User logout successful')
+        )
+})
+
+export const checkAuthStatus = asyncHandler(async (req: Request, res: Response) => {
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, req.user, 'User is authenticated')
         )
 })

@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {
+    checkAuthStatus,
     loginUser,
     logoutUser, registerUser
 } from "../controllers/user.controller.js";
@@ -13,6 +14,7 @@ router.route('/login').post(loginUser)
 
 //secure routes
 router.route('/logout').post(verifyJWT, logoutUser)
+router.route('/check-session').get(verifyJWT, checkAuthStatus)
 
 
 export default router
