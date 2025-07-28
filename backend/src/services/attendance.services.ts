@@ -32,7 +32,7 @@ export const updateAttendanceSummary = (att: IAttendance): void => {
 
     //* Check is late or not
     const checkIn = getMinutesFromDate(firstCheckIn)
-    att.isLate = checkIn > (lateInRelaxation + startTime)
+    att.isLate = checkIn > lateInRelaxation
 
     //* Set attendance status
     if (totalHours > (totalShiftHours - 1) && att.isLate) {
