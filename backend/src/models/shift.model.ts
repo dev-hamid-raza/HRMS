@@ -25,6 +25,6 @@ const shiftSchema = new Schema<IShift>({
     brakeStart: Number,
     brakeEnd: Number,
     totalShiftHours: Number,
-})
+}, {timestamps: true})
 
 export const Shift: Model<IShift> = mongoose.model<IShift>('Shift', shiftSchema)
