@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import usePostFn from '@/hooks/usePostFn';
 import { login } from '@/services/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -19,7 +19,13 @@ const Login = () => {
 		passwordError: false,
 	});
     const navigate = useNavigate()
-	const { setIsAuthenticated, setUser } = useAuth();
+	const { isAuthenticated, setIsAuthenticated, setUser } = useAuth();
+
+	useEffect(() => {
+		if(isAuthenticated) {
+			navigate('dashboard')
+		}
+	}, [])
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();

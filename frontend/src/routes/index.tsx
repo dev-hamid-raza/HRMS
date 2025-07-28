@@ -3,6 +3,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import { ROUTES } from "@/lib/constants/routes";
 import { lazy } from "react";
 import type { RouteObject } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 
 const LoginPage = lazy(() => import("@/pages/Login"))
 const DashboardPage = lazy(() => import('@/pages/Dashboard'))
@@ -18,7 +19,11 @@ export const routes: RouteObject[] = [
     },
     {
         path: '/*',
-        element: <MainLayout />,
+        element: (
+            <ProtectedRoute>
+                <MainLayout />
+            </ProtectedRoute>
+        ),
         children: [
             {
                 path: ROUTES.DASHBOARD,
