@@ -129,3 +129,35 @@ export const createEmployee = asyncHandler(async (req: Request<{}, {}, IEmployee
         )
 
 })
+
+
+//! Employees list
+
+export const employeesList = asyncHandler(async(req: Request, res: Response) => {
+
+    const search = req.query.search as string;
+
+    let query = {};
+    if (search) {
+        query = {
+            employ: { $regex: search, $options: "i" },
+        };
+    }
+
+    const employees = await Employee.find(query)
+            .select("-__v -createdAt -UpdatedAt")
+            .populate("department", "departmentName")
+            .populate('designation', 'designationName')
+            .populate('shift', 'shiftName')
+            .populate('empType', 'empType')
+
+    if(!employees) {
+        throw new ApiError(500, 'something went wrong')
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200,employees, 'Employees list')
+        )
+})
