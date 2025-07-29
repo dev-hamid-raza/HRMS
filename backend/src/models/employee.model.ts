@@ -111,7 +111,7 @@ const employeeSchema = new Schema<IEmployee>({
         type: String,
         required: true,
         default: 'on duty',
-        enum: ['on duty', 'terminate', 'quite']
+        enum: ['on duty', 'terminated', 'quit']
     },
     salaryType: {
         type: String,
@@ -120,6 +120,7 @@ const employeeSchema = new Schema<IEmployee>({
     },
     empType: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'EmployeeType',
         required: true,
     },
     designation: {
@@ -154,7 +155,7 @@ const employeeSchema = new Schema<IEmployee>({
         type: Boolean,
         default: false
     }
-})
+}, { timestamps: true})
 
 
 employeeSchema.pre('save', async function (next) {

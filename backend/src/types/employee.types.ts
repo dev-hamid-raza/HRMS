@@ -24,7 +24,7 @@ export interface IEmployee extends Document {
     salary: number
     qualification: string
     overTimeAllowed: boolean
-    status: 'on duty' | 'terminate' | 'quite'
+    status: 'on duty' | 'terminated' | 'quit'
     salaryType: 'daily' | 'monthly'
     empType: Types.ObjectId
     designation: Types.ObjectId
