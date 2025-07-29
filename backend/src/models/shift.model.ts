@@ -1,4 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
+
 import { IShift } from "../types/shift.types.js";
 
 const shiftSchema = new Schema<IShift>({

@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { deleteShift, shiftCreate, shiftList, updateShift } from "../controllers/shift.controller";
+import { deleteShift, shiftCreate, shiftList, updateShift } from "../controllers/shift.controller.js";
 
 
 const router = Router()

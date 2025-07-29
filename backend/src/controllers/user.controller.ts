@@ -7,7 +7,6 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import { ILoginBody, IRegisterRequestBody } from "../types/user.types.js"
 import { generateUniqueUsername } from "../utils/username.js"
 import { generateAccessTokenAndRefreshToken } from "../lib/generateJwtToken.js"
-import { constants } from "fs/promises"
 
 export const registerUser = asyncHandler(async (
     req: Request<{}, {}, IRegisterRequestBody>, res: Response

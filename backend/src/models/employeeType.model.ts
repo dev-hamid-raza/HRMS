@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IEmployeeType } from "../types/employeeType.types";
+
+import { IEmployeeType } from "../types/employeeType.types.js"
 
 const employeeTypeSchema = new Schema<IEmployeeType>({
     empType: {

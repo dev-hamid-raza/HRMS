@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/ApiError";
-import { EmployeeType } from "../models/employeeType.model";
-import { ApiResponse } from "../utils/ApiResponse";
+
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
+import { EmployeeType } from "../models/employeeType.model.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const createEmpType = asyncHandler(async (req:Request<{}, {}, {empType: string}>, res: Response) => {
     const { empType } = req.body
