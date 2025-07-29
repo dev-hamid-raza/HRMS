@@ -19,7 +19,7 @@ function Sidebar() {
   const links: Link[]  = [
     {
       linkName: "Employees",
-      path: '/employee',
+      path: '/employees',
       icon: peopleIcon,
       iconAlt: 'people-icon'
     },
