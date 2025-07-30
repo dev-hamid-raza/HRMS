@@ -35,6 +35,7 @@ export interface IEmployee extends Document {
     restUsed: number
     restMonth: string
     isRandom: boolean
+    image: string
 }
 
 export interface IEmployeeBody {

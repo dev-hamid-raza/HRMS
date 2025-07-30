@@ -154,6 +154,10 @@ const employeeSchema = new Schema<IEmployee>({
     isRandom: {
         type: Boolean,
         default: false
+    },
+    image: {
+        type: String,
+        required: true
     }
 }, { timestamps: true})
 
