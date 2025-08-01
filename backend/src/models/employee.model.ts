@@ -57,7 +57,7 @@ const employeeSchema = new Schema<IEmployee>({
     gender: {
         type: String,
         required: true,
-        enum: ['male', 'female']
+        enum: ['male', 'female', 'other']
     },
     reference: {
         type: String
