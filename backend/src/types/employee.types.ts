@@ -19,7 +19,7 @@ export interface IEmployee extends Document {
     emgPhoneNumber: string
     permanentAddress: string
     tempAddress: string
-    BloodGroup: string
+    bloodGroup: string
     onDuty: boolean
     salary: number
     qualification: string
@@ -55,7 +55,7 @@ export interface IEmployeeBody {
     emgPhoneNumber: string
     permanentAddress: string
     tempAddress: string
-    BloodGroup: string
+    bloodGroup: string
     salary: number
     qualification: string
     overTimeAllowed: boolean

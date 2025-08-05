@@ -86,7 +86,7 @@ const employeeSchema = new Schema<IEmployee>({
         type: String,
         required: true,
     },
-    BloodGroup: {
+    bloodGroup: {
         type: String,
         required: true,
         enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'none']
