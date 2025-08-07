@@ -22,13 +22,13 @@ export default function PrimaryDeleteDialog({
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
 				<DialogContent className='sm:max-w-[425px]'>
-			<form>
+			<form className='space-y-4'>
 					<DialogHeader>
 						<DialogTitle>{title}</DialogTitle>
+					</DialogHeader>
 						<DialogDescription>
 							{description}
 						</DialogDescription>
-					</DialogHeader>
 					<DialogFooter>
 						<DialogClose asChild>
 							<Button variant='secondary'>Cancel</Button>
