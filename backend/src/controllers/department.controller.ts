@@ -4,6 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Department } from "../models/department.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { Employee } from "../models/employee.model.js";
 
 //! Create Department
 
@@ -47,6 +48,12 @@ export const deleteDepartment = asyncHandler( async (req: Request,res:Response) 
 
     if(!department) {
         throw new ApiError(404, 'Department not found')
+    }
+
+    const emp = await Employee.findOne({department: id})
+
+    if(emp) {
+        throw new ApiError(400, "Unable to delete because it is associated with employee. You need to change it before deleting")
     }
 
     await department.deleteOne()

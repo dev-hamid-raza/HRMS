@@ -4,6 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { EmployeeType } from "../models/employeeType.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { Employee } from "../models/employee.model.js";
 
 export const createEmpType = asyncHandler(async (req:Request<{}, {}, {empType: string}>, res: Response) => {
     const { empType } = req.body
@@ -44,6 +45,12 @@ export const deleteEmpType = asyncHandler(async (req:Request, res: Response) => 
 
     if(!empType) {
         throw new ApiError(404,"Employee type not found")
+    }
+
+    const emp = await Employee.findOne({empType: id})
+
+    if(emp) {
+        throw new ApiError(400, "Unable to delete because it is associated with employee. You need to change it before deleting")
     }
 
     await empType.deleteOne()

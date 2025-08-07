@@ -6,6 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { calculateHours, minutesToTimeString, timeStringToMinutes } from "../lib/time.js";
 import { Shift } from "../models/shift.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { Employee } from "../models/employee.model.js";
 
 export const shiftCreate = asyncHandler(async (req: Request<{}, {}, ShiftRequestBody>, res: Response) => {
     const { startTime, endTime, lateInRelaxation, earlyOutRelaxation, brakeEnd, brakeStart, shiftName } = req.body
@@ -167,6 +168,12 @@ export const deleteShift = asyncHandler(async (req: Request, res: Response) => {
 
     if (!shift) {
         throw new ApiError(404, 'Shift not found')
+    }
+
+    const emp = await Employee.findOne({shift: id})
+
+    if(emp) {
+        throw new ApiError(400, "Unable to delete because it is associated with employee. You need to change it before deleting")
     }
 
     await shift.deleteOne()

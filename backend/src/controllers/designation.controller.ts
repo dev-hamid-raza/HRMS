@@ -4,6 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Designation } from "../models/designation.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { Employee } from "../models/employee.model.js";
 
 //! Create designation
 export const createDesignation = asyncHandler(async (req: Request<{}, {}, { designationName: string }>, res: Response) => {
@@ -42,6 +43,12 @@ export const deleteDesignation = asyncHandler(async (req: Request<{ id: string }
 
     if (!designation) {
         throw new ApiError(404, 'Designation not found')
+    }
+
+    const emp = await Employee.findOne({designation: id})
+
+    if(emp) {
+        throw new ApiError(400, "Unable to delete because it is associated with employee. You need to change it before deleting")
     }
 
     await designation.deleteOne()
