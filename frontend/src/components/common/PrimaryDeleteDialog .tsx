@@ -21,8 +21,8 @@ export default function PrimaryDeleteDialog({
 }: PrimaryDeleteDialogProps) {
 	return (
 		<Dialog open={open} onOpenChange={onClose}>
-			<form>
 				<DialogContent className='sm:max-w-[425px]'>
+			<form>
 					<DialogHeader>
 						<DialogTitle>{title}</DialogTitle>
 						<DialogDescription>
@@ -41,8 +41,8 @@ export default function PrimaryDeleteDialog({
 							{isDisabled ? <Loader /> : "Delete"}
 						</Button>
 					</DialogFooter>
-				</DialogContent>
 			</form>
+				</DialogContent>
 		</Dialog>
 	);
 }
