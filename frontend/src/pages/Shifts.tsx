@@ -18,7 +18,7 @@ import {
 	updateShift,
 } from '@/services/shift';
 import type { Shift, ShiftBody } from '@/types/shift.types';
-import { timeStringToAmPm } from '@/utils/time';
+import { timeStringToAmPm } from '@/utils/timeDate';
 
 const PrimaryDeleteDialog = lazy(
 	() => import('@/components/common/PrimaryDeleteDialog ')
