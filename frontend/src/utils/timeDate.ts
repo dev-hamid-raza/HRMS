@@ -19,3 +19,11 @@ export function formatDateToDDMMYYYY(inputDate: string) {
 
 	return formatter.format(date).replace(/\//g, '-');
 }
+
+
+export function parseDDMMYYYY(input: string): string {
+	const [dd, mm, yyyy] = input.split('-').map(Number);
+
+	return `${yyyy}-${mm}-${dd}`;
+}
+
