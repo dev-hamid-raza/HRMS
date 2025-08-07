@@ -153,6 +153,134 @@ export const createEmployee = asyncHandler(async (req: Request<{}, {}, IEmployee
 })
 
 
+//! Update employee
+export const updateEmployee = asyncHandler(async (req: Request<{ id: string }, {}, IEmployeeBody>, res: Response) => {
+	const employeeId = req.params.id;
+
+	// Check if employee exists
+	const existingEmp = await Employee.findById(employeeId);
+	if (!existingEmp) {
+		throw new ApiError(404, "Employee not found");
+	}
+
+	const {
+		fatherName,
+		lastName,
+		firstName,
+		shift,
+		restDay,
+		isRandom,
+		bloodGroup,
+		cnic,
+		dateOfBirthday,
+		dateOfConfirmation,
+		dateOfJoining,
+		department,
+		designation,
+		emgPhoneNumber,
+		empType,
+		gender,
+		martialStatus,
+		overTimeAllowed,
+		permanentAddress,
+		phoneNumber,
+		qualification,
+		religion,
+		salary,
+		salaryType,
+		tempAddress,
+		reference,
+		replace,
+	} = req.body;
+
+	const requiredFields = {
+		fatherName,
+		lastName,
+		firstName,
+		shift,
+		restDay,
+		isRandom,
+		bloodGroup,
+		cnic,
+		dateOfBirthday,
+		dateOfConfirmation,
+		dateOfJoining,
+		department,
+		designation,
+		emgPhoneNumber,
+		empType,
+		gender,
+		martialStatus,
+		overTimeAllowed,
+		permanentAddress,
+		phoneNumber,
+		qualification,
+		religion,
+		salary,
+		salaryType,
+		tempAddress,
+	};
+
+	for (const [key, value] of Object.entries(requiredFields)) {
+		if (value === undefined || value === null || (typeof value === "string" && value.trim() === "")) {
+			throw new ApiError(400, `Missing or empty field: ${key}`);
+		}
+	}
+
+	// Validate IDs
+	const [empTypeDoc, designationDoc, departmentDoc, shiftDoc] = await Promise.all([
+		EmployeeType.findById(empType),
+		Designation.findById(designation),
+		Department.findById(department),
+		Shift.findById(shift),
+	]);
+
+	if (!empTypeDoc) throw new ApiError(400, "Invalid employee type ID");
+	if (!designationDoc) throw new ApiError(400, "Invalid designation ID");
+	if (!departmentDoc) throw new ApiError(400, "Invalid department ID");
+	if (!shiftDoc) throw new ApiError(400, "Invalid shift ID");
+
+	// Calculate rest data
+	const { restQuota, restUsed, restMonth } = calculateRestData(restDay, dateOfJoining);
+
+	let imageUrl = existingEmp.image;
+
+	// Update image if a new file is uploaded
+	if (req.file) {
+		const uploadedFilePath = path.join(__dirname, "../../uploads", req.file.filename);
+		imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+
+		// Delete old image if exists
+		if (existingEmp.image) {
+			const oldImagePath = path.join(__dirname, "../../uploads", path.basename(existingEmp.image));
+			if (fs.existsSync(oldImagePath)) {
+				fs.unlinkSync(oldImagePath);
+			}
+		}
+	}
+
+	const updatedEmp = await Employee.findByIdAndUpdate(
+		employeeId,
+		{
+			...requiredFields,
+			reference,
+			replace,
+			restQuota,
+			restUsed,
+			restMonth,
+			image: imageUrl,
+		},
+		{ new: true }
+	);
+
+	if (!updatedEmp) {
+		throw new ApiError(500, "Something went wrong while updating employee");
+	}
+
+	return res.status(200).json(new ApiResponse(200, updatedEmp, "Employee updated successfully"));
+});
+
+
 //! Employees list
 
 export const employeesList = asyncHandler(async (req: Request, res: Response) => {
