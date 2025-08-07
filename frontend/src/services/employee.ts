@@ -1,6 +1,5 @@
-import { DEPARTMENT_API } from "@/lib/constants/api/department"
 import { getApi, postApi } from "./apiClient"
-import type { EmployeeResponse } from "@/types/employees.types"
+import type { EmployeeBody, EmployeeResponse } from "@/types/employees.types"
 import { EMPLOYEE_API } from "@/lib/constants/api/employee"
 
 export const fetchEmployees = async (params?: {search: string}) => {
@@ -13,18 +12,28 @@ export const fetchEmployees = async (params?: {search: string}) => {
     return res.data
 }
 
-export const createEmployee = async (body: { departmentName: string }) => {
+export const createEmployee = async (body: EmployeeBody) => {
     const res = await postApi<EmployeeResponse>({
-        url: DEPARTMENT_API.CREATE,
-        body
+        url: EMPLOYEE_API.CREATE,
+        body,
+        options: {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
     })
     return res.data
 }
 
-export const updateEmployee = async (departmentName: string, id: number) => {
+export const updateEmployee = async (body: EmployeeBody, id: number) => {
     const res = await postApi<EmployeeResponse>({
-        url: DEPARTMENT_API.UPDATE(id),
-        body: { departmentName }
+        url: EMPLOYEE_API.UPDATE(id),
+        body,
+        options: {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
     })
     return res.data
 }

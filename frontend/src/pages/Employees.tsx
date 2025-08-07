@@ -1,45 +1,30 @@
 import Header from '@/components/common/Header';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Table } from '@/components/common/PrimaryTable';
-import type { Department } from '@/types/department.types';
 import type { Column } from '@/types/table.types';
 import useFetchFn from '@/hooks/useFetch';
-import {
-	createDepartment,
-	deleDepartment,
-	fetchDepartments,
-	updateDepartment,
-} from '@/services/department';
 import { toast } from 'sonner';
 import usePostFn from '@/hooks/usePostFn';
 import Loader from '@/components/common/Loader';
-import { Check, CheckCircle, CheckCircle2, Circle, CircleAlert, CircleX, Cross, CrosshairIcon, CrossIcon, PenBoxIcon, Square, SquareX, Trash2 } from 'lucide-react';
+import { CheckCircle2, CircleX, PenBoxIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
-import { fetchEmployees } from '@/services/employee';
-import type { Employee } from '@/types/employees.types';
-import { formatDateToDDMMYYYY } from '@/utils/time';
+import { createEmployee, fetchEmployees, updateEmployee } from '@/services/employee';
+import type { Employee, EmployeeBody } from '@/types/employees.types';
+import { formatDateToDDMMYYYY } from '@/utils/timeDate';
 import { StatusBadge } from '@/components/common/StatusBadge';
 
-const PrimaryInputDialog = lazy(
-	() => import('@/components/common/PrimaryInputDialog')
-);
-const PrimaryDeleteDialog = lazy(
-	() => import('@/components/common/PrimaryDeleteDialog ')
+const EmployeeFormDialog = lazy(
+	() => import('@/components/employee/EmployeeFormDialog')
 );
 
 function Employees() {
 	const [open, setOpen] = useState(false);
-	const [ searchParams, setSearchParams] = useSearchParams()
-	
-	const status = {
-		"on duty": 'On Duty',
-		'terminate': 'Terminate',
-		'quite': 'Quite'
-	}
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	const initialQuery = searchParams.get("search") || ''
+
+
+	const initialQuery = searchParams.get('search') || '';
 
 	const [searchQuery, setSearchQuery] = useState(initialQuery);
 	const {
@@ -47,28 +32,23 @@ function Employees() {
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchEmployees, {search: searchQuery},[searchQuery]);
-	const { postData, loading: postLoading } = usePostFn(createDepartment);
-	const [departmentName, setDepartmentName] = useState('');
-	const [loading, setLoading] = useState(false);
-	const [department, setDepartment] = useState<Department | null>(null);
-	const [deleteOpen, setDeleteOpen] = useState(false);
+	} = useFetchFn(fetchEmployees, { search: searchQuery }, [searchQuery]);
+	const { postData, loading: postLoading } = usePostFn(createEmployee);
+	const [employee, setEmployee] = useState<Employee | null>(null);
 	const [updateOpen, setUpdateOpen] = useState(false);
 	const { postData: updatePostData, loading: updateLoading } = usePostFn(
-		(id: number) => updateDepartment(departmentName, id)
+		(empData: EmployeeBody) => updateEmployee(empData, employee?._id ?? 1)
 	);
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-
 			if (searchQuery) {
 				setSearchParams({ search: searchQuery });
 			} else {
 				setSearchParams({});
 			}
-	
 		}, 300);
-	
+
 		return () => clearTimeout(debounce);
 	}, [searchQuery]);
 
@@ -79,15 +59,39 @@ function Employees() {
 	const employees: Employee[] = data?.data || [];
 
 	const columns: Column<Employee>[] = [
-		{ header: 'Code', accessor: "empCode" },
-		{ header: 'Full Name', accessor: (row) => `${row.firstName} ${row.lastName}` },
+		{ header: 'Code', accessor: 'empCode' },
+		{
+			header: 'Full Name',
+			accessor: (row) => `${row.firstName} ${row.lastName}`,
+		},
 		{ header: 'Department', accessor: (row) => row.department.departmentName },
-		{ header: 'Designation', accessor: (row) => row.designation.designationName },
-		{ header: 'Joining Date', accessor: (row) => formatDateToDDMMYYYY(row.dateOfJoining) },
+		{
+			header: 'Designation',
+			accessor: (row) => row.designation.designationName,
+		},
+		{
+			header: 'Joining Date',
+			accessor: (row) => formatDateToDDMMYYYY(row.dateOfJoining),
+		},
 		{ header: 'Employee type', accessor: (row) => row.empType.empType },
 		{ header: 'Shift', accessor: (row) => row.shift.shiftName },
-		{ header: 'Status', accessor: (row) => <StatusBadge status={row.status} /> },
-		{ header: 'Present', accessor: (row) => row.onDuty ? <div className='bg-success-100 p-1 rounded-md w-8 h-8 flex justify-center items-center text-success-800'><CheckCircle2 /></div> : <div className='bg-warning-100 p-1 rounded-md w-8 h-8 flex justify-center items-center text-warning-700'><CircleX /></div>},
+		{
+			header: 'Status',
+			accessor: (row) => <StatusBadge status={row.status} />,
+		},
+		{
+			header: 'Present',
+			accessor: (row) =>
+				row.onDuty ? (
+					<div className='bg-success-100 p-1 rounded-md w-8 h-8 flex justify-center items-center text-success-800'>
+						<CheckCircle2 />
+					</div>
+				) : (
+					<div className='bg-warning-100 p-1 rounded-md w-8 h-8 flex justify-center items-center text-warning-700'>
+						<CircleX />
+					</div>
+				),
+		},
 		{
 			header: 'Actions',
 			accessor: (row: Employee) => (
@@ -96,8 +100,7 @@ function Employees() {
 						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600'
 						onClick={() => {
 							setUpdateOpen(true);
-							setDepartment(row);
-							setDepartmentName(row.departmentName);
+							setEmployee(row);
 						}}
 					>
 						<PenBoxIcon />
@@ -107,12 +110,12 @@ function Employees() {
 		},
 	];
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (formData: EmployeeBody) => {
 		try {
-			const res = await postData({ departmentName });
+			const res = await postData(formData);
 			if (res.success) {
 				refetch();
-				toast.success('Department created successfully');
+				toast.success('Employee added new successfully');
 				setOpen(false);
 			}
 		} catch (error) {
@@ -120,36 +123,12 @@ function Employees() {
 		}
 	};
 
-	const handleDelete = async () => {
-		if (!department) return;
+	const handleUpdate = async (formData: EmployeeBody) => {
 		try {
-			setLoading(true);
-			const res = await deleDepartment(department._id);
+			const res = await updatePostData(formData);
 			if (res.success) {
-				toast.success('Department deleted successfully');
 				refetch();
-				setDeleteOpen(false);
-			}
-			setLoading(false);
-		} catch (error) {
-			setLoading(false);
-			let errorMsg = 'Something went wrong';
-
-			if (axios.isAxiosError(error)) {
-				errorMsg = error.response?.data?.message || errorMsg;
-			}
-
-			toast.error(errorMsg);
-		}
-	};
-
-	const handleUpdate = async () => {
-		if (!department) return;
-		try {
-			const res = await updatePostData(department._id);
-			if (res.success) {
-				toast.success('Department name change successfully');
-				refetch();
+				toast.success('Employee Updated successfully');
 				setUpdateOpen(false);
 			}
 		} catch (error) {
@@ -157,20 +136,21 @@ function Employees() {
 		}
 	};
 
+
 	return (
-		<div className='w-ful flex h-screen flex-col space-y-6'>
+		<div className='w-ful flex h-screen flex-col gap-6'>
 			<Header
 				title='Employees'
 				buttonText='New'
 				onChange={() => {
-					setDepartmentName('');
 					setOpen(true);
 				}}
 			/>
 			<div className='px-8 w-85'>
-				<Input placeholder='Search the department'
-				value={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
+				<Input
+					placeholder='Search the employee'
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
 			</div>
 			<div className='flex-1 overflow-hidden'>
@@ -183,41 +163,22 @@ function Employees() {
 				)}
 			</div>
 			<Suspense>
-				<PrimaryInputDialog
-					title='Create a department'
-					description='The department name must be unique'
-					label='Department name'
-					placeholder='Enter new department name'
+				<EmployeeFormDialog
+					title='Add a new employee'
 					open={open}
 					isDisabled={postLoading}
 					onClose={() => setOpen(false)}
 					onAction={handleSubmit}
-					inputValue={departmentName}
-					setInputValue={(e) => setDepartmentName(e)}
 				/>
 			</Suspense>
 			<Suspense>
-				<PrimaryInputDialog
-					title='Update department name'
-					description='The department name must be unique'
-					label='Department name'
-					placeholder='Enter new department name'
+				<EmployeeFormDialog
+					title='Update employee'
 					open={updateOpen}
 					isDisabled={updateLoading}
 					onClose={() => setUpdateOpen(false)}
 					onAction={handleUpdate}
-					inputValue={departmentName}
-					setInputValue={(e) => setDepartmentName(e)}
-				/>
-			</Suspense>
-			<Suspense>
-				<PrimaryDeleteDialog
-					title='Are you sure?'
-					description='Before deleting a department, make sure to update the department assignments for all associated employees.'
-					open={deleteOpen}
-					isDisabled={loading}
-					onClose={() => setDeleteOpen(false)}
-					onAction={handleDelete}
+					data={employee}
 				/>
 			</Suspense>
 		</div>

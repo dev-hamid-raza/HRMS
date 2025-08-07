@@ -1,3 +1,4 @@
+import type { Employee, EmployeeBody } from "./employees.types";
 import type { ShiftBody } from "./shift.types";
 
 export type PrimaryInoutDialogProps = {
@@ -22,6 +23,15 @@ export type PrimaryShiftDialogProps = {
     shiftTimes: ShiftBody
     title: string
     handleTimeChange: (key: keyof ShiftBody, value: string) => void;
+};
+
+export type EmployeeFormDialogProps = {
+    open: boolean
+    onClose: () => void
+    onAction: (formData: EmployeeBody) => void
+    isDisabled: boolean
+    title: string,
+    data?: Employee | null
 };
 
 export type PrimaryDeleteDialogProps = {
