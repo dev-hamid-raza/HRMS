@@ -13,6 +13,7 @@ import { createEmployee, fetchEmployees, updateEmployee } from '@/services/emplo
 import type { Employee, EmployeeBody } from '@/types/employees.types';
 import { formatDateToDDMMYYYY } from '@/utils/timeDate';
 import { StatusBadge } from '@/components/common/StatusBadge';
+import EmployeeDrawer from '@/components/employee/EmployeeDrawer';
 
 const EmployeeFormDialog = lazy(
 	() => import('@/components/employee/EmployeeFormDialog')
@@ -162,6 +163,7 @@ function Employees() {
 					<Table className='h-full' columns={columns} data={employees} />
 				)}
 			</div>
+			<EmployeeDrawer />
 			<Suspense>
 				<EmployeeFormDialog
 					title='Add a new employee'
