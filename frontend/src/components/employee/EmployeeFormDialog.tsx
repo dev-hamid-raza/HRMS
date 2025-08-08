@@ -462,7 +462,8 @@ export default function EmployeeFormDialog({
 											</div>
 											<div className='flex gap-2.5'>
 												<Combobox
-													label='Employee type'
+													label='employee type'
+													name='Employee type'
 													options={empTypeOptions}
 													value={empType}
 													setValue={(e) => setEmpType(e)}
@@ -470,6 +471,7 @@ export default function EmployeeFormDialog({
 												/>
 												<Combobox
 													label='Department'
+													name='department'
 													options={departmentOptions}
 													value={department}
 													setValue={(e) => setDepartment(e)}
@@ -477,6 +479,7 @@ export default function EmployeeFormDialog({
 												/>
 												<Combobox
 													label='Designation'
+													name='designation'
 													options={designationOptions}
 													value={designation}
 													setValue={(e) => setDesignation(e)}
@@ -500,6 +503,7 @@ export default function EmployeeFormDialog({
 												/>
 												<Combobox
 													label='Salary Type'
+													name='salary type'
 													options={salaryTypeOptions}
 													value={salaryType}
 													setValue={(e) => setSalaryType(e)}
@@ -507,6 +511,7 @@ export default function EmployeeFormDialog({
 												/>
 												<Combobox
 													label='Shift'
+													name='shift'
 													options={shiftOptions}
 													value={shift ?? ''}
 													setValue={(e) => setShift(e)}
@@ -535,6 +540,7 @@ export default function EmployeeFormDialog({
 
 												<Combobox
 													label='Rest Day'
+													name='rest day'
 													options={restDayOptions}
 													value={restDay}
 													setValue={(e) => setRestDay(e)}
@@ -558,6 +564,7 @@ export default function EmployeeFormDialog({
 												value={gender}
 												setValue={(e) => setGender(e)}
 												label='Gender'
+												name='gender'
 												options={genderOptions}
 												hasError={errors.genderError}
 											/>
@@ -565,6 +572,7 @@ export default function EmployeeFormDialog({
 												value={martialStatus}
 												setValue={(e) => setMartialStatus(e)}
 												label='Martial status'
+												name='martial status'
 												options={martialStatusOptions}
 												hasError={errors.martialStatusError}
 											/>
@@ -572,6 +580,7 @@ export default function EmployeeFormDialog({
 												value={bloodGroup}
 												setValue={(e) => setBloodGroup(e)}
 												label='Blood group'
+												name='blood group'
 												options={BloodGroupOptions}
 												hasError={errors.BloodGroupError}
 											/>
@@ -579,6 +588,7 @@ export default function EmployeeFormDialog({
 												value={religion}
 												setValue={(e) => setReligion(e)}
 												label='Religion'
+												name='religion'
 												options={religionOptions}
 												hasError={errors.religionError}
 											/>

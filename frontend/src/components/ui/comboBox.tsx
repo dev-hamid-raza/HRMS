@@ -29,9 +29,10 @@ interface ComboboxProps {
 	hasError?: boolean
 	value: string
 	setValue: (val: string) => void
+	name: string
 }
 
-export function Combobox({ options, onChange, label, hasError, value, setValue }: ComboboxProps) {
+export function Combobox({ options, onChange, label, hasError, value, setValue, name }: ComboboxProps) {
 	const [open, setOpen] = React.useState(false);
 	// const [value, setValue] = React.useState('');
 	return (
@@ -73,7 +74,7 @@ export function Combobox({ options, onChange, label, hasError, value, setValue }
 				<Command>
 					<CommandInput placeholder='Search framework...' className='h-9' />
 					<CommandList>
-						<CommandEmpty>No framework found.</CommandEmpty>
+						<CommandEmpty>No {name} found.</CommandEmpty>
 						<CommandGroup>
 							{options.map((option) => (
 								<CommandItem
