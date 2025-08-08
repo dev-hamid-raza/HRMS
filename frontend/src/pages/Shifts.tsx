@@ -84,7 +84,7 @@ function Shifts() {
 		{ header: 'Rest end', accessor: (row) => timeStringToAmPm(row.brakeEnd) },
 		{ header: 'Late in', accessor: (row) => timeStringToAmPm(row.lateInRelaxation) },
 		{ header: 'Early out', accessor: (row) => timeStringToAmPm(row.earlyOutRelaxation) },
-		{ header: 'Hours', accessor: 'totalShiftHours' },
+		{ header: 'Hours', accessor: (row) => Number(row.totalShiftHours).toFixed(2)},
 		{
 			header: 'Actions',
 			accessor: (row: Shift) => (
