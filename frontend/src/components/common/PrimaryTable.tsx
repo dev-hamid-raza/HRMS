@@ -46,7 +46,7 @@ export function Table<T>({
 							<tr
 								key={rowIndex}
 								onClick={() => onRowClick?.(row)}
-								className={`cursor-pointer hover:bg-gray-100 transition`}
+								className={`hover:bg-gray-100 transition`}
 							>
 								{columns.map((col, colIndex) => {
 									const value =
