@@ -75,7 +75,7 @@ function Departments() {
 			accessor: (row: Department) => (
 				<div className='flex gap-2'>
 					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600'
+						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
 						onClick={() => {
 							setUpdateOpen(true);
 							setDepartment(row);
