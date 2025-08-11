@@ -1,6 +1,11 @@
+import type { Employee } from '@/types/employees.types';
 import React from 'react';
 
-export default function EmployeeProfile({ employee }) {
+type EmpProfileProps = {
+	employee: Employee
+}
+
+export default function EmployeeProfile({employee}: EmpProfileProps ) {
     const dayName = ['Sunday', 'Monday', 'Tuesday', 'Thursday', 'Friday', 'Saturday']
 	return (
 		<div className='flex items-center justify-center p-6'>
@@ -33,13 +38,13 @@ export default function EmployeeProfile({ employee }) {
 						<div className='flex'>
 							<p className='text-gray-500 w-50 text-xl'>Designation</p>
 							<h1 className='text-xl font-bold text-gray-800'>
-								{employee.designation}
+								{employee.designation.designationName}
 							</h1>
 						</div>
 						<div className='flex'>
 							<p className='text-gray-500 w-50 text-xl'>Department</p>
 							<h1 className='text-xl font-bold text-gray-800'>
-								{employee.department}
+								{employee.department.departmentName}
 							</h1>
 						</div>
 						<div className='flex'>
@@ -86,8 +91,8 @@ export default function EmployeeProfile({ employee }) {
 					/>
 					<Info label='Status' value={employee.status} />
 					<Info label='Salary Type' value={employee.salaryType} />
-					<Info label='Employment Type' value={employee.empType} />
-					<Info label='Shift' value={employee.shift} />
+					<Info label='Employment Type' value={employee.empType.empType} />
+					<Info label='Shift' value={employee.shift.shiftName} />
 					<Info label='Rest Day' value={dayName[employee.restDay]} />
 					<Info label='Rest Quota' value={employee.restQuota} />
 					<Info label='Rest Used' value={employee.restUsed} />
@@ -99,7 +104,7 @@ export default function EmployeeProfile({ employee }) {
 	);
 }
 
-function Info({ label, value }: {label:string, value: string}) {
+function Info({ label, value }: {label:string, value: string | number}) {
 	return (
 		<div className='flex gap-2 border-b'>
 			<span className='text-gray-500'>{label} :</span>

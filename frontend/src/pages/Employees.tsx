@@ -6,24 +6,29 @@ import useFetchFn from '@/hooks/useFetch';
 import { toast } from 'sonner';
 import usePostFn from '@/hooks/usePostFn';
 import Loader from '@/components/common/Loader';
-import { CheckCircle2, CircleX, PenBoxIcon } from 'lucide-react';
+import { CheckCircle2, CircleX, Eye, PenBoxIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSearchParams } from 'react-router-dom';
-import { createEmployee, fetchEmployees, updateEmployee } from '@/services/employee';
+import {
+	createEmployee,
+	fetchEmployees,
+	updateEmployee,
+} from '@/services/employee';
 import type { Employee, EmployeeBody } from '@/types/employees.types';
 import { formatDateToDDMMYYYY } from '@/utils/timeDate';
 import { StatusBadge } from '@/components/common/StatusBadge';
-import EmployeeDrawer from '@/components/employee/EmployeeDrawer';
 
+const EmployeeDrawer = lazy(
+	() => import('@/components/employee/EmployeeDrawer')
+);
 const EmployeeFormDialog = lazy(
 	() => import('@/components/employee/EmployeeFormDialog')
 );
 
 function Employees() {
 	const [open, setOpen] = useState(false);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [searchParams, setSearchParams] = useSearchParams();
-
-
 
 	const initialQuery = searchParams.get('search') || '';
 
@@ -98,13 +103,22 @@ function Employees() {
 			accessor: (row: Employee) => (
 				<div className='flex gap-2'>
 					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600'
+						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
 						onClick={() => {
-							setUpdateOpen(true);
 							setEmployee(row);
+							setUpdateOpen(true);
 						}}
 					>
 						<PenBoxIcon />
+					</button>
+					<button
+						className='bg-primary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-primary-700 hover:cursor-pointer'
+						onClick={() => {
+							setEmployee(row);
+							setDrawerOpen(true);
+						}}
+					>
+						<Eye />
 					</button>
 				</div>
 			),
@@ -137,7 +151,6 @@ function Employees() {
 		}
 	};
 
-
 	return (
 		<div className='w-ful flex h-screen flex-col gap-6'>
 			<Header
@@ -163,7 +176,13 @@ function Employees() {
 					<Table className='h-full' columns={columns} data={employees} />
 				)}
 			</div>
-			<EmployeeDrawer />
+			<Suspense>
+				<EmployeeDrawer
+				employee={employee} 
+				open={drawerOpen}
+				setClose={() => setDrawerOpen(false)}
+				/>
+			</Suspense>
 			<Suspense>
 				<EmployeeFormDialog
 					title='Add a new employee'
