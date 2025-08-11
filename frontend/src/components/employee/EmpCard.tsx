@@ -1,5 +1,4 @@
 import type { Employee } from '@/types/employees.types';
-import React from 'react';
 
 type EmpProfileProps = {
 	employee: Employee
