@@ -7,7 +7,7 @@ import {
 	createDesignation,
 	deleDesignation,
 	fetchDesignations,
-	updateDesignation
+	updateDesignation,
 } from '@/services/designation';
 import { toast } from 'sonner';
 import usePostFn from '@/hooks/usePostFn';
@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import type { Designation } from '@/types/designation.types';
+import PrimaryTooltip from '@/components/common/PrimaryTooltip';
 
 const PrimaryInputDialog = lazy(
 	() => import('@/components/common/PrimaryInputDialog')
@@ -55,7 +56,6 @@ function Designations() {
 			} else {
 				setSearchParams({});
 			}
-
 		}, 300);
 
 		return () => clearTimeout(debounce);
@@ -73,25 +73,29 @@ function Designations() {
 			header: 'Actions',
 			accessor: (row: Designation) => (
 				<div className='flex gap-2'>
-					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
-						onClick={() => {
-							setUpdateOpen(true);
-							setDesignation(row);
-							setDesignationName(row.designationName);
-						}}
-					>
-						<PenBoxIcon />
-					</button>
-					<button
-						className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
-						onClick={() => {
-							setDeleteOpen(true);
-							setDesignation(row);
-						}}
-					>
-						<Trash2 />
-					</button>
+					<PrimaryTooltip tip='Edit'>
+						<button
+							className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
+							onClick={() => {
+								setUpdateOpen(true);
+								setDesignation(row);
+								setDesignationName(row.designationName);
+							}}
+						>
+							<PenBoxIcon />
+						</button>
+					</PrimaryTooltip>
+					<PrimaryTooltip tip='Delete'>
+						<button
+							className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
+							onClick={() => {
+								setDeleteOpen(true);
+								setDesignation(row);
+							}}
+						>
+							<Trash2 />
+						</button>
+					</PrimaryTooltip>
 				</div>
 			),
 		},

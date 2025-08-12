@@ -17,6 +17,7 @@ import { PenBoxIcon, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
+import PrimaryTooltip from '@/components/common/PrimaryTooltip';
 
 const PrimaryInputDialog = lazy(
 	() => import('@/components/common/PrimaryInputDialog')
@@ -27,9 +28,9 @@ const PrimaryDeleteDialog = lazy(
 
 function Departments() {
 	const [open, setOpen] = useState(false);
-	const [ searchParams, setSearchParams] = useSearchParams()
-	
-	const initialQuery = searchParams.get("search") || ''
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const initialQuery = searchParams.get('search') || '';
 
 	const [searchQuery, setSearchQuery] = useState(initialQuery);
 	const {
@@ -37,7 +38,7 @@ function Departments() {
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchDepartments, {search: searchQuery},[searchQuery]);
+	} = useFetchFn(fetchDepartments, { search: searchQuery }, [searchQuery]);
 	const { postData, loading: postLoading } = usePostFn(createDepartment);
 	const [departmentName, setDepartmentName] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -50,15 +51,13 @@ function Departments() {
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-
 			if (searchQuery) {
 				setSearchParams({ search: searchQuery });
 			} else {
 				setSearchParams({});
 			}
-	
 		}, 300);
-	
+
 		return () => clearTimeout(debounce);
 	}, [searchQuery]);
 
@@ -74,25 +73,29 @@ function Departments() {
 			header: 'Actions',
 			accessor: (row: Department) => (
 				<div className='flex gap-2'>
-					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
-						onClick={() => {
-							setUpdateOpen(true);
-							setDepartment(row);
-							setDepartmentName(row.departmentName);
-						}}
-					>
-						<PenBoxIcon />
-					</button>
-					<button
-						className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
-						onClick={() => {
-							setDeleteOpen(true);
-							setDepartment(row);
-						}}
-					>
-						<Trash2 />
-					</button>
+					<PrimaryTooltip tip='Edit'>
+						<button
+							className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
+							onClick={() => {
+								setUpdateOpen(true);
+								setDepartment(row);
+								setDepartmentName(row.departmentName);
+							}}
+						>
+							<PenBoxIcon />
+						</button>
+					</PrimaryTooltip>
+					<PrimaryTooltip tip='Delete'>
+						<button
+							className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
+							onClick={() => {
+								setDeleteOpen(true);
+								setDepartment(row);
+							}}
+						>
+							<Trash2 />
+						</button>
+					</PrimaryTooltip>
 				</div>
 			),
 		},
@@ -159,9 +162,10 @@ function Departments() {
 				}}
 			/>
 			<div className='px-8 w-85'>
-				<Input placeholder='Search the department'
-				value={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
+				<Input
+					placeholder='Search the department'
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
 			</div>
 			<div className='flex-1 overflow-hidden'>

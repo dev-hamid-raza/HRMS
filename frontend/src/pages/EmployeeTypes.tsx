@@ -7,7 +7,7 @@ import {
 	createEmpType,
 	deleteEmpType,
 	fetchEmpTypes,
-	updateEmpType
+	updateEmpType,
 } from '@/services/employeeType';
 import { toast } from 'sonner';
 import usePostFn from '@/hooks/usePostFn';
@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import type { EmpType } from '@/types/employeeType.types';
+import PrimaryTooltip from '@/components/common/PrimaryTooltip';
 
 const PrimaryInputDialog = lazy(
 	() => import('@/components/common/PrimaryInputDialog')
@@ -27,9 +28,9 @@ const PrimaryDeleteDialog = lazy(
 
 function EmployeeTypes() {
 	const [open, setOpen] = useState(false);
-	const [ searchParams, setSearchParams] = useSearchParams()
-	
-	const initialQuery = searchParams.get("search") || ''
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const initialQuery = searchParams.get('search') || '';
 
 	const [searchQuery, setSearchQuery] = useState(initialQuery);
 	const {
@@ -37,7 +38,7 @@ function EmployeeTypes() {
 		error,
 		loading: fetchLoading,
 		refetch,
-	} = useFetchFn(fetchEmpTypes, {search: searchQuery}, [searchQuery]);
+	} = useFetchFn(fetchEmpTypes, { search: searchQuery }, [searchQuery]);
 	const { postData, loading: postLoading } = usePostFn(createEmpType);
 	const [empType, setEmpType] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -50,14 +51,13 @@ function EmployeeTypes() {
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-
 			if (searchQuery) {
 				setSearchParams({ search: searchQuery });
 			} else {
 				setSearchParams({});
 			}
 		}, 300);
-	
+
 		return () => clearTimeout(debounce);
 	}, [searchQuery]);
 
@@ -73,25 +73,29 @@ function EmployeeTypes() {
 			header: 'Actions',
 			accessor: (row: EmpType) => (
 				<div className='flex gap-2'>
-					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
-						onClick={() => {
-							setUpdateOpen(true);
-							setEmpTypeData(row);
-							setEmpType(row.empType);
-						}}
-					>
-						<PenBoxIcon />
-					</button>
-					<button
-						className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
-						onClick={() => {
-							setDeleteOpen(true);
-							setEmpTypeData(row);
-						}}
-					>
-						<Trash2 />
-					</button>
+					<PrimaryTooltip tip='Edit'>
+						<button
+							className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
+							onClick={() => {
+								setUpdateOpen(true);
+								setEmpTypeData(row);
+								setEmpType(row.empType);
+							}}
+						>
+							<PenBoxIcon />
+						</button>
+					</PrimaryTooltip>
+					<PrimaryTooltip tip='Delete'>
+						<button
+							className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
+							onClick={() => {
+								setDeleteOpen(true);
+								setEmpTypeData(row);
+							}}
+						>
+							<Trash2 />
+						</button>
+					</PrimaryTooltip>
 				</div>
 			),
 		},
@@ -158,9 +162,10 @@ function EmployeeTypes() {
 				}}
 			/>
 			<div className='px-8 w-85'>
-				<Input placeholder='Search the employee type'
-				value={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
+				<Input
+					placeholder='Search the employee type'
+					value={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
 			</div>
 			<div className='flex-1 overflow-hidden'>

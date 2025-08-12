@@ -19,6 +19,7 @@ import {
 } from '@/services/shift';
 import type { Shift, ShiftBody } from '@/types/shift.types';
 import { timeStringToAmPm } from '@/utils/timeDate';
+import PrimaryTooltip from '@/components/common/PrimaryTooltip';
 
 const PrimaryDeleteDialog = lazy(
 	() => import('@/components/common/PrimaryDeleteDialog ')
@@ -80,34 +81,50 @@ function Shifts() {
 		{ header: 'Name', accessor: 'shiftName' },
 		{ header: 'Start', accessor: (row) => timeStringToAmPm(row.startTime) },
 		{ header: 'End', accessor: (row) => timeStringToAmPm(row.endTime) },
-		{ header: 'Rest start', accessor: (row) => timeStringToAmPm(row.brakeStart) },
+		{
+			header: 'Rest start',
+			accessor: (row) => timeStringToAmPm(row.brakeStart),
+		},
 		{ header: 'Rest end', accessor: (row) => timeStringToAmPm(row.brakeEnd) },
-		{ header: 'Late in', accessor: (row) => timeStringToAmPm(row.lateInRelaxation) },
-		{ header: 'Early out', accessor: (row) => timeStringToAmPm(row.earlyOutRelaxation) },
-		{ header: 'Hours', accessor: (row) => Number(row.totalShiftHours).toFixed(2)},
+		{
+			header: 'Late in',
+			accessor: (row) => timeStringToAmPm(row.lateInRelaxation),
+		},
+		{
+			header: 'Early out',
+			accessor: (row) => timeStringToAmPm(row.earlyOutRelaxation),
+		},
+		{
+			header: 'Hours',
+			accessor: (row) => Number(row.totalShiftHours).toFixed(2),
+		},
 		{
 			header: 'Actions',
 			accessor: (row: Shift) => (
 				<div className='flex gap-2'>
-					<button
-						className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
-						onClick={() => {
-							setUpdateOpen(true);
-							setShiftData(row);
-							setShiftTimes(row);
-						}}
-					>
-						<PenBoxIcon />
-					</button>
-					<button
-						className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
-						onClick={() => {
-							setDeleteOpen(true);
-							setShiftData(row);
-						}}
-					>
-						<Trash2 />
-					</button>
+					<PrimaryTooltip tip='Edit'>
+						<button
+							className='bg-secondary-200 p-1 rounded-md w-8 h-8 flex justify-center items-center text-secondary-600 hover:cursor-pointer'
+							onClick={() => {
+								setUpdateOpen(true);
+								setShiftData(row);
+								setShiftTimes(row);
+							}}
+						>
+							<PenBoxIcon />
+						</button>
+					</PrimaryTooltip>
+					<PrimaryTooltip tip='Delete'>
+						<button
+							className='bg-danger-200 w-8 h-8 flex justify-center items-center rounded-md text-danger-700 hover:cursor-pointer'
+							onClick={() => {
+								setDeleteOpen(true);
+								setShiftData(row);
+							}}
+						>
+							<Trash2 />
+						</button>
+					</PrimaryTooltip>
 				</div>
 			),
 		},
