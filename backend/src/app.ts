@@ -16,6 +16,7 @@ import empTypeRouter from './routes/employeeType.routes.js'
 import { markDailyAttendanceStatus } from "./services/attendance.services.js"
 import { updateMonthlyRestQuota } from "./services/calculateRest.services.js"
 import { errorHandler } from "./middlewares/errorHandler.js"
+import { addPunchTime } from "./helper/addAttendance.js"
 
 dotenv.config({
     path: './.env'
@@ -39,6 +40,7 @@ app.use(cookieParser())
 
 // updateMonthlyRestQuota()
 // markDailyAttendanceStatus()
+// addPunchTime()
 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/departments",departmentRouter)

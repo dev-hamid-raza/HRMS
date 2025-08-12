@@ -63,30 +63,74 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
 })
 
 
-export const getPunches = asyncHandler(async (req: Request<{},{},{},{startDate:string, endDate: string}>, res: Response) => {
-    const { startDate, endDate } = req.query
+export const getPunches = asyncHandler(async (
+    req: Request<{}, {}, {}, {
+        startDate: string;
+        endDate: string;
+        empCode?: string;
+        department?: string;
+        empType?: string;
+    }>,
+    res: Response
+) => {
+    const { startDate, endDate, empCode, department, empType } = req.query;
 
-    if(!startDate || ! endDate) {
-        throw new ApiError(400, 'Start and ending date is required')
+    if (!startDate || !endDate) {
+        throw new ApiError(400, 'Start and ending date is required');
     }
 
-    const fromDate = new Date(startDate)
-    const toDate = new Date(endDate)
+    const fromDate = new Date(startDate);
+    const toDate = new Date(endDate);
 
-    const results = await Attendance.find({
+    // Base filter
+    const attendanceFilter: any = {
         date: {
             $gte: fromDate,
             $lte: toDate
         }
-    })
+    };
 
-    if(!results) {
-        throw new ApiError(500, 'Something went wrong while fetching punch report')
+    // If any employee-related filters are provided
+    if (empCode || department || empType) {
+        const employeeFilter: any = {};
+
+        if (empCode) {
+            employeeFilter.empCode = empCode;
+        }
+        if (department) {
+            employeeFilter.department = department;
+        }
+        if (empType) {
+            employeeFilter.empType = empType;
+        }
+        console.log(employeeFilter,"Filter ")
+        const matchingUsers = await Employee.find(employeeFilter).select("_id");
+        const userIds = matchingUsers.map(user => user._id);
+
+        if (userIds.length === 0) {
+            return res
+                .status(200)
+                .json(new ApiResponse(200, [], "No matching records found"));
+        }
+
+        attendanceFilter.employee = { $in: userIds };
+    }
+
+    // Query attendance
+    const results = await Attendance.find(attendanceFilter)
+        .populate({
+            path: 'employee',
+            select: 'firstName lastName',
+            populate: [{
+                path: 'department', select: 'departmentName'
+            }]
+        }).select('-createdAt -updatedAt -__v')
+            
+    if (!results) {
+        throw new ApiError(500, 'Something went wrong while fetching punch report');
     }
 
     return res
         .status(200)
-        .json(
-            new ApiResponse(200, results, "here is data")
-        )
-})
+        .json(new ApiResponse(200, results, "Here is data"));
+});
