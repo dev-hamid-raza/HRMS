@@ -5,7 +5,7 @@ type EmpProfileProps = {
 }
 
 export default function EmployeeProfile({employee}: EmpProfileProps ) {
-    const dayName = ['Sunday', 'Monday', 'Tuesday', 'Thursday', 'Friday', 'Saturday']
+    const dayName = ['Sunday', 'Monday', 'Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday']
 	return (
 		<div className='flex items-center justify-center p-6'>
 			<div className='bg-surface-50 shadow-xl rounded-2xl w-full max-w-3xl overflow-hidden'>
