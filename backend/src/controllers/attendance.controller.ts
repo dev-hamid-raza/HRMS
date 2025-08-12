@@ -119,7 +119,7 @@ export const getPunches = asyncHandler(async (
     const results = await Attendance.find(attendanceFilter)
         .populate({
             path: 'employee',
-            select: 'firstName lastName',
+            select: 'firstName lastName empCode',
             populate: [{
                 path: 'department', select: 'departmentName'
             }]
