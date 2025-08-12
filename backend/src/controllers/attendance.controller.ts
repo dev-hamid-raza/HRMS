@@ -103,7 +103,6 @@ export const getPunches = asyncHandler(async (
         if (empType) {
             employeeFilter.empType = empType;
         }
-        console.log(employeeFilter,"Filter ")
         const matchingUsers = await Employee.find(employeeFilter).select("_id");
         const userIds = matchingUsers.map(user => user._id);
 
