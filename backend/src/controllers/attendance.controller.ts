@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -82,54 +82,103 @@ export const getPunches = asyncHandler(async (
     const fromDate = new Date(startDate);
     const toDate = new Date(endDate);
 
-    // Base filter
-    const attendanceFilter: any = {
-        date: {
-            $gte: fromDate,
-            $lte: toDate
-        }
+    const matchStage: any = {
+        date: { $gte: fromDate, $lte: toDate }
     };
 
-    // If any employee-related filters are provided
-    if (empCode || department || empType) {
-        const employeeFilter: any = {};
+    const employeeMatch: any = {};
+    if (empCode) employeeMatch["employee.empCode"] = +empCode;
+    if (department) employeeMatch["employee.department"] = new mongoose.Types.ObjectId(department);
+    if (empType) employeeMatch["employee.empType"] = new mongoose.Types.ObjectId(empType);
 
-        if (empCode) {
-            employeeFilter.empCode = empCode;
+    const pipeline: any[] = [
+        { $match: matchStage },
+
+        // Join with employee
+        {
+            $lookup: {
+                from: "employees",
+                localField: "employee",
+                foreignField: "_id",
+                as: "employee"
+            }
+        },
+        { $unwind: "$employee" },
+
+        // Filter employees if query params present
+        ...(Object.keys(employeeMatch).length > 0 ? [{ $match: employeeMatch }] : []),
+
+        // Join with department
+        {
+            $lookup: {
+                from: "departments",
+                localField: "employee.department",
+                foreignField: "_id",
+                as: "department"
+            }
+        },
+        { $unwind: "$department" },
+
+        // Keep only selected fields
+        {
+            $project: {
+                empCode: "$employee.empCode",
+                employeeName: { $concat: ["$employee.firstName", " ", "$employee.lastName"] },
+                departmentName: "$department.departmentName",
+                punches: "$punches",
+                date: 1,
+                isLate: 1,
+                totalHoursWorked: 1,
+                status: 1
+            }
+        },
+
+        // Group by employee inside department
+        {
+            $group: {
+                _id: {
+                    departmentName: "$departmentName",
+                    empCode: "$empCode"
+                },
+                employeeName: { $first: "$employeeName" },
+                punches: {
+                    $push: {
+                        punches: "$punches",
+                        date: "$date",
+                        isLate: "$isLate",
+                        totalHoursWorked: "$totalHoursWorked",
+                        status: "$status"
+                    }
+                }
+            }
+        },
+
+        // Group by department name
+        {
+            $group: {
+                _id: "$_id.departmentName",
+                employees: {
+                    $push: {
+                        empCode: "$_id.empCode",
+                        employeeName: "$employeeName",
+                        punches: "$punches"
+                    }
+                }
+            }
+        },
+
+        // Rename fields for clean output
+        {
+            $project: {
+                _id: 0,
+                departmentName: "$_id",
+                employees: 1
+            }
         }
-        if (department) {
-            employeeFilter.department = department;
-        }
-        if (empType) {
-            employeeFilter.empType = empType;
-        }
-        const matchingUsers = await Employee.find(employeeFilter).select("_id");
-        const userIds = matchingUsers.map(user => user._id);
+    ];
 
-        if (userIds.length === 0) {
-            return res
-                .status(200)
-                .json(new ApiResponse(200, [], "No matching records found"));
-        }
+    const results = await Attendance.aggregate(pipeline);
 
-        attendanceFilter.employee = { $in: userIds };
-    }
-
-    // Query attendance
-    const results = await Attendance.find(attendanceFilter)
-        .populate({
-            path: 'employee',
-            select: 'firstName lastName empCode',
-            populate: [{
-                path: 'department', select: 'departmentName'
-            }]
-        }).select('-createdAt -updatedAt -__v')
-            
-    if (!results) {
-        throw new ApiError(500, 'Something went wrong while fetching punch report');
-    }
-
-    return res
-        .status(200)
-        .json(new ApiResponse(200, results, "Here is data"));
+    return res.status(200).json(new ApiResponse(200, results, "Here is grouped data"));
 });
+
