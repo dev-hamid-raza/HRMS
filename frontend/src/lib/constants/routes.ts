@@ -6,4 +6,5 @@ export const ROUTES = {
     EMP_TYPES: 'employee-types',
     SHIFTS: 'shifts',
     EMPLOYEES: 'employees',
+    ATTENDANCE: 'attendance',
 }

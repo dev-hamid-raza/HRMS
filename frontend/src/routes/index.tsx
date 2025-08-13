@@ -12,6 +12,7 @@ const DesignationsPage = lazy(() => import('@/pages/Designations'))
 const EmployeeTypesPage = lazy(() => import('@/pages/EmployeeTypes'))
 const ShiftsPage = lazy(() => import('@/pages/Shifts'))
 const EmployeesPage = lazy(() => import('@/pages/Employees'))
+const AttendancePage = lazy(() => import('@/pages/Attendance'))
 
 export const routes: RouteObject[] = [
     {
@@ -49,6 +50,10 @@ export const routes: RouteObject[] = [
             {
                 path: ROUTES.EMPLOYEES,
                 element: LazyLoad(EmployeesPage)
+            },
+            {
+                path: ROUTES.ATTENDANCE,
+                element: LazyLoad(AttendancePage)
             },
         ]
     }

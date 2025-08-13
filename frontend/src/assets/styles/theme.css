@@ -194,3 +194,9 @@
 	font-weight: 700 !important;
 	line-height: var(--leading-LineHeightBody) !important;
 }
+
+.vertical-text {
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	white-space: nowrap;
+}
