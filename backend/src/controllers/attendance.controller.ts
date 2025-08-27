@@ -23,7 +23,7 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     }
 
     const employeeId = employee._id
-    
+
     if (employee.onDuty) {
         const attendance = await Attendance.find({ employee: employeeId })
         today = attendance[attendance.length - 1].date
@@ -119,12 +119,22 @@ export const getPunches = asyncHandler(async (
         },
         { $unwind: "$department" },
 
+        {
+            $lookup: {
+                from: "designations",
+                localField: "employee.designation",
+                foreignField: "_id",
+                as: "designation"
+            }
+        },
+        { $unwind: "$designation" },
         // Keep only selected fields
         {
             $project: {
                 empCode: "$employee.empCode",
                 employeeName: { $concat: ["$employee.firstName", " ", "$employee.lastName"] },
                 departmentName: "$department.departmentName",
+                designationName: "$designation.designationName",
                 punches: "$punches",
                 date: 1,
                 isLate: 1,
@@ -141,6 +151,7 @@ export const getPunches = asyncHandler(async (
                     empCode: "$empCode"
                 },
                 employeeName: { $first: "$employeeName" },
+                designationName: { $first: "$designationName" },
                 punches: {
                     $push: {
                         punches: "$punches",
@@ -153,6 +164,9 @@ export const getPunches = asyncHandler(async (
             }
         },
 
+        // Sort employees by empCode
+        { $sort: { "_id.empCode": 1 } },
+
         // Group by department name
         {
             $group: {
@@ -161,6 +175,7 @@ export const getPunches = asyncHandler(async (
                     $push: {
                         empCode: "$_id.empCode",
                         employeeName: "$employeeName",
+                        designationName: "$designationName",
                         punches: "$punches"
                     }
                 }

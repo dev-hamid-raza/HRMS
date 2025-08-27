@@ -24,7 +24,9 @@ const AttendanceTables = () => {
               <table className="min-w-full border border-gray-300 text-sm">
                 <thead>
                   <tr className="bg-gray-100">
+                    <th className="border p-2">Code</th>
                     <th className="border p-2">Employee</th>
+                    <th className="border p-2">Designation</th>
                     {allDates.map((date) => (
                       <th key={date} className="border p-2 vertical-text text-center">
                         {date}
@@ -35,7 +37,9 @@ const AttendanceTables = () => {
                 <tbody>
                   {dept.employees.map((emp) => (
                     <tr key={emp.empCode}>
-                      <td className="border p-2">{emp.empCode} - {emp.employeeName}</td>
+                      <td className="border p-2 text-center">{emp.empCode}</td>
+                      <td className="border p-2">{emp.employeeName}</td>
+                      <td className="border p-2">{emp.designationName}</td>
                       {allDates.map((date) => {
                         const punch = emp.punches.find(
                           (p: any) =>
