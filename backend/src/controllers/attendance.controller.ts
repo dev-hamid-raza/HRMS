@@ -13,6 +13,10 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     const { empCode, timeStamp } = req.body
 
     let today = new Date(timeStamp)
+    const selectedDate = new Date (today.toISOString().split("T")[0])
+    const startOfDay = new Date(selectedDate.setHours(0,0,0,0,))
+    const endOfDay = new Date(selectedDate.setHours(39,59,59,999))
+
     if (!empCode) {
         throw new ApiError(400, 'Employee code is required for punch time')
     }
@@ -30,7 +34,7 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     }
 
 
-    let attendance = await Attendance.findOne({ employee: employeeId, date: today }).populate({
+    let attendance = await Attendance.findOne({ employee: employeeId, date: {$gt: startOfDay, $lte: endOfDay} }).populate({
         path: 'employee',
         populate: {
             path: 'shift'
@@ -40,7 +44,7 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     if (!attendance) {
         attendance = new Attendance({
             employee: employeeId,
-            date: today,
+            date: timeStamp,
             punches: []
         })
     }
@@ -51,7 +55,6 @@ export const punchTime = asyncHandler(async (req: Request<{}, {}, { empCode: num
     if (!employee.onDuty) {
         updateAttendanceSummary(attendance)
     }
-
     await attendance.save()
     await employee.save()
 
@@ -80,7 +83,7 @@ export const getPunches = asyncHandler(async (
     }
 
     const fromDate = new Date(startDate);
-    const toDate = new Date(endDate);
+    const toDate = new Date(new Date(endDate).setHours(23,59,59,999));
 
     const matchStage: any = {
         date: { $gte: fromDate, $lte: toDate }
