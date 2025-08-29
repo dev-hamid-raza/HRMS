@@ -554,6 +554,1110 @@ export const data = [
         {
             "employees": [
                 {
+                    "empCode": 3,
+                    "employeeName": "Fahad Tariq",
+                    "designationName": "Team leader",
+                    "punches": [
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-01T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b357d308a48b6f60df"
+                                },
+                                {
+                                    "time": "2025-07-01T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b457d308a48b6f60e9"
+                                }
+                            ],
+                            "date": "2025-07-01T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-02T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b557d308a48b6f60ef"
+                                },
+                                {
+                                    "time": "2025-07-02T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b757d308a48b6f60fb"
+                                }
+                            ],
+                            "date": "2025-07-02T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-03T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b857d308a48b6f6101"
+                                },
+                                {
+                                    "time": "2025-07-03T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b957d308a48b6f610f"
+                                }
+                            ],
+                            "date": "2025-07-03T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-04T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5ba57d308a48b6f6115"
+                                },
+                                {
+                                    "time": "2025-07-04T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5bc57d308a48b6f6125"
+                                }
+                            ],
+                            "date": "2025-07-04T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-05T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5bc57d308a48b6f612b"
+                                },
+                                {
+                                    "time": "2025-07-05T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5be57d308a48b6f613d"
+                                }
+                            ],
+                            "date": "2025-07-05T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-06T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5bf57d308a48b6f6143"
+                                },
+                                {
+                                    "time": "2025-07-06T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c057d308a48b6f6157"
+                                }
+                            ],
+                            "date": "2025-07-06T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-07T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c157d308a48b6f615d"
+                                },
+                                {
+                                    "time": "2025-07-07T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c357d308a48b6f6173"
+                                }
+                            ],
+                            "date": "2025-07-07T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-08T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c457d308a48b6f6179"
+                                },
+                                {
+                                    "time": "2025-07-08T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c557d308a48b6f6191"
+                                }
+                            ],
+                            "date": "2025-07-08T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-09T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c657d308a48b6f6197"
+                                },
+                                {
+                                    "time": "2025-07-09T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c757d308a48b6f61b1"
+                                }
+                            ],
+                            "date": "2025-07-09T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-10T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c857d308a48b6f61b7"
+                                },
+                                {
+                                    "time": "2025-07-10T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ca57d308a48b6f61d3"
+                                }
+                            ],
+                            "date": "2025-07-10T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-11T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cb57d308a48b6f61d9"
+                                },
+                                {
+                                    "time": "2025-07-11T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5cc57d308a48b6f61f7"
+                                }
+                            ],
+                            "date": "2025-07-11T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-12T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cd57d308a48b6f61fd"
+                                },
+                                {
+                                    "time": "2025-07-12T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ce57d308a48b6f621d"
+                                }
+                            ],
+                            "date": "2025-07-12T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-13T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cf57d308a48b6f6223"
+                                },
+                                {
+                                    "time": "2025-07-13T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d157d308a48b6f6245"
+                                }
+                            ],
+                            "date": "2025-07-13T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-14T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d257d308a48b6f624b"
+                                },
+                                {
+                                    "time": "2025-07-14T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d357d308a48b6f626f"
+                                }
+                            ],
+                            "date": "2025-07-14T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-15T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d457d308a48b6f6275"
+                                },
+                                {
+                                    "time": "2025-07-15T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d557d308a48b6f629b"
+                                }
+                            ],
+                            "date": "2025-07-15T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-16T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d657d308a48b6f62a1"
+                                },
+                                {
+                                    "time": "2025-07-16T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d857d308a48b6f62c9"
+                                }
+                            ],
+                            "date": "2025-07-16T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-17T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d957d308a48b6f62cf"
+                                },
+                                {
+                                    "time": "2025-07-17T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5da57d308a48b6f62f9"
+                                }
+                            ],
+                            "date": "2025-07-17T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-18T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5db57d308a48b6f62ff"
+                                },
+                                {
+                                    "time": "2025-07-18T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5dd57d308a48b6f632b"
+                                }
+                            ],
+                            "date": "2025-07-18T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-19T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5dd57d308a48b6f6331"
+                                },
+                                {
+                                    "time": "2025-07-19T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5df57d308a48b6f635f"
+                                }
+                            ],
+                            "date": "2025-07-19T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-20T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e057d308a48b6f6365"
+                                },
+                                {
+                                    "time": "2025-07-20T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e157d308a48b6f6395"
+                                }
+                            ],
+                            "date": "2025-07-20T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-21T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e257d308a48b6f639b"
+                                },
+                                {
+                                    "time": "2025-07-21T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e457d308a48b6f63cd"
+                                }
+                            ],
+                            "date": "2025-07-21T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-22T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e457d308a48b6f63d3"
+                                },
+                                {
+                                    "time": "2025-07-22T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e657d308a48b6f6407"
+                                }
+                            ],
+                            "date": "2025-07-22T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-23T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e757d308a48b6f640d"
+                                },
+                                {
+                                    "time": "2025-07-23T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e857d308a48b6f6443"
+                                }
+                            ],
+                            "date": "2025-07-23T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-24T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e957d308a48b6f6449"
+                                },
+                                {
+                                    "time": "2025-07-24T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5eb57d308a48b6f6481"
+                                }
+                            ],
+                            "date": "2025-07-24T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-25T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5eb57d308a48b6f6487"
+                                },
+                                {
+                                    "time": "2025-07-25T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ed57d308a48b6f64c1"
+                                }
+                            ],
+                            "date": "2025-07-25T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-26T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5ee57d308a48b6f64c7"
+                                },
+                                {
+                                    "time": "2025-07-26T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ef57d308a48b6f6503"
+                                }
+                            ],
+                            "date": "2025-07-26T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-27T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f057d308a48b6f6509"
+                                },
+                                {
+                                    "time": "2025-07-27T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f257d308a48b6f6547"
+                                }
+                            ],
+                            "date": "2025-07-27T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-28T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f257d308a48b6f654d"
+                                },
+                                {
+                                    "time": "2025-07-28T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f457d308a48b6f658d"
+                                }
+                            ],
+                            "date": "2025-07-28T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-29T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f557d308a48b6f6593"
+                                },
+                                {
+                                    "time": "2025-07-29T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f657d308a48b6f65d5"
+                                }
+                            ],
+                            "date": "2025-07-29T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-30T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f757d308a48b6f65db"
+                                },
+                                {
+                                    "time": "2025-07-30T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f957d308a48b6f661f"
+                                }
+                            ],
+                            "date": "2025-07-30T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        }
+                    ]
+                }
+            ],
+            "departmentName": "Mobile Development"
+        },
+        {
+            "employees": [
+                {
+                    "empCode": 3,
+                    "employeeName": "Fahad Tariq",
+                    "designationName": "Team leader",
+                    "punches": [
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-01T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b357d308a48b6f60df"
+                                },
+                                {
+                                    "time": "2025-07-01T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b457d308a48b6f60e9"
+                                }
+                            ],
+                            "date": "2025-07-01T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-02T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b557d308a48b6f60ef"
+                                },
+                                {
+                                    "time": "2025-07-02T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b757d308a48b6f60fb"
+                                }
+                            ],
+                            "date": "2025-07-02T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-03T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5b857d308a48b6f6101"
+                                },
+                                {
+                                    "time": "2025-07-03T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5b957d308a48b6f610f"
+                                }
+                            ],
+                            "date": "2025-07-03T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-04T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5ba57d308a48b6f6115"
+                                },
+                                {
+                                    "time": "2025-07-04T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5bc57d308a48b6f6125"
+                                }
+                            ],
+                            "date": "2025-07-04T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-05T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5bc57d308a48b6f612b"
+                                },
+                                {
+                                    "time": "2025-07-05T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5be57d308a48b6f613d"
+                                }
+                            ],
+                            "date": "2025-07-05T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-06T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5bf57d308a48b6f6143"
+                                },
+                                {
+                                    "time": "2025-07-06T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c057d308a48b6f6157"
+                                }
+                            ],
+                            "date": "2025-07-06T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-07T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c157d308a48b6f615d"
+                                },
+                                {
+                                    "time": "2025-07-07T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c357d308a48b6f6173"
+                                }
+                            ],
+                            "date": "2025-07-07T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-08T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c457d308a48b6f6179"
+                                },
+                                {
+                                    "time": "2025-07-08T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c557d308a48b6f6191"
+                                }
+                            ],
+                            "date": "2025-07-08T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-09T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c657d308a48b6f6197"
+                                },
+                                {
+                                    "time": "2025-07-09T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5c757d308a48b6f61b1"
+                                }
+                            ],
+                            "date": "2025-07-09T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-10T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5c857d308a48b6f61b7"
+                                },
+                                {
+                                    "time": "2025-07-10T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ca57d308a48b6f61d3"
+                                }
+                            ],
+                            "date": "2025-07-10T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-11T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cb57d308a48b6f61d9"
+                                },
+                                {
+                                    "time": "2025-07-11T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5cc57d308a48b6f61f7"
+                                }
+                            ],
+                            "date": "2025-07-11T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-12T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cd57d308a48b6f61fd"
+                                },
+                                {
+                                    "time": "2025-07-12T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ce57d308a48b6f621d"
+                                }
+                            ],
+                            "date": "2025-07-12T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-13T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5cf57d308a48b6f6223"
+                                },
+                                {
+                                    "time": "2025-07-13T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d157d308a48b6f6245"
+                                }
+                            ],
+                            "date": "2025-07-13T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-14T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d257d308a48b6f624b"
+                                },
+                                {
+                                    "time": "2025-07-14T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d357d308a48b6f626f"
+                                }
+                            ],
+                            "date": "2025-07-14T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-15T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d457d308a48b6f6275"
+                                },
+                                {
+                                    "time": "2025-07-15T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d557d308a48b6f629b"
+                                }
+                            ],
+                            "date": "2025-07-15T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-16T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d657d308a48b6f62a1"
+                                },
+                                {
+                                    "time": "2025-07-16T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5d857d308a48b6f62c9"
+                                }
+                            ],
+                            "date": "2025-07-16T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-17T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5d957d308a48b6f62cf"
+                                },
+                                {
+                                    "time": "2025-07-17T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5da57d308a48b6f62f9"
+                                }
+                            ],
+                            "date": "2025-07-17T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-18T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5db57d308a48b6f62ff"
+                                },
+                                {
+                                    "time": "2025-07-18T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5dd57d308a48b6f632b"
+                                }
+                            ],
+                            "date": "2025-07-18T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-19T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5dd57d308a48b6f6331"
+                                },
+                                {
+                                    "time": "2025-07-19T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5df57d308a48b6f635f"
+                                }
+                            ],
+                            "date": "2025-07-19T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-20T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e057d308a48b6f6365"
+                                },
+                                {
+                                    "time": "2025-07-20T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e157d308a48b6f6395"
+                                }
+                            ],
+                            "date": "2025-07-20T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-21T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e257d308a48b6f639b"
+                                },
+                                {
+                                    "time": "2025-07-21T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e457d308a48b6f63cd"
+                                }
+                            ],
+                            "date": "2025-07-21T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-22T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e457d308a48b6f63d3"
+                                },
+                                {
+                                    "time": "2025-07-22T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e657d308a48b6f6407"
+                                }
+                            ],
+                            "date": "2025-07-22T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-23T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e757d308a48b6f640d"
+                                },
+                                {
+                                    "time": "2025-07-23T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5e857d308a48b6f6443"
+                                }
+                            ],
+                            "date": "2025-07-23T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-24T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5e957d308a48b6f6449"
+                                },
+                                {
+                                    "time": "2025-07-24T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5eb57d308a48b6f6481"
+                                }
+                            ],
+                            "date": "2025-07-24T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-25T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5eb57d308a48b6f6487"
+                                },
+                                {
+                                    "time": "2025-07-25T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ed57d308a48b6f64c1"
+                                }
+                            ],
+                            "date": "2025-07-25T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-26T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5ee57d308a48b6f64c7"
+                                },
+                                {
+                                    "time": "2025-07-26T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5ef57d308a48b6f6503"
+                                }
+                            ],
+                            "date": "2025-07-26T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-27T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f057d308a48b6f6509"
+                                },
+                                {
+                                    "time": "2025-07-27T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f257d308a48b6f6547"
+                                }
+                            ],
+                            "date": "2025-07-27T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-28T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f257d308a48b6f654d"
+                                },
+                                {
+                                    "time": "2025-07-28T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f457d308a48b6f658d"
+                                }
+                            ],
+                            "date": "2025-07-28T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-29T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f557d308a48b6f6593"
+                                },
+                                {
+                                    "time": "2025-07-29T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f657d308a48b6f65d5"
+                                }
+                            ],
+                            "date": "2025-07-29T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        },
+                        {
+                            "punches": [
+                                {
+                                    "time": "2025-07-30T04:14:00.000Z",
+                                    "type": "IN",
+                                    "_id": "689ad5f757d308a48b6f65db"
+                                },
+                                {
+                                    "time": "2025-07-30T14:14:00.000Z",
+                                    "type": "OUT",
+                                    "_id": "689ad5f957d308a48b6f661f"
+                                }
+                            ],
+                            "date": "2025-07-30T04:14:00.000Z",
+                            "isLate": false,
+                            "totalHoursWorked": 10,
+                            "status": "P"
+                        }
+                    ]
+                }
+            ],
+            "departmentName": "Mobile Development"
+        },
+        {
+            "employees": [
+                {
                     "empCode": 1,
                     "employeeName": "Ali Raza",
                     "designationName": "Senior Front-end developer",
