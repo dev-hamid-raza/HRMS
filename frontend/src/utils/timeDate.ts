@@ -27,3 +27,14 @@ export function parseDDMMYYYY(input: string): string {
 	return `${yyyy}-${mm}-${dd}`;
 }
 
+export function getDatesInRange(startDate:string, endDate: string) {
+	const date = new Date(startDate);
+	const dates = [];
+
+	while (date <= new Date(endDate)) {
+		dates.push(new Date(date))
+		date.setDate(date.getDate() + 1)
+	}
+
+	return dates
+}
