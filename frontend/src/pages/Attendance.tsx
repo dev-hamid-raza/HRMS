@@ -22,7 +22,7 @@ const AttendanceTables = () => {
   })
   const [showTable, setShowTable] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [conponentLoading, setComponentLoading] = useState(false)
+  const [componentLoading, setComponentLoading] = useState(true)
   const startDate = "2025-07-01";
   const endDate = "2025-07-31";
 
@@ -34,7 +34,7 @@ const AttendanceTables = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setComponentLoading(false);
-    }, 3000);
+    }, 400);
 
     return () => clearTimeout(timer);
   }, [])
@@ -88,127 +88,136 @@ const AttendanceTables = () => {
           <Button>Attendance Summary</Button>
         </div>
       </div>
-      
-      <div className="bg-surface-100 border border-gray-200 text-lg font-medium text-gray-700 -mb-0 px-8 py-2">
-        {
-          loading
-            ? <Loader className="!w-[28px] !h-[28px]" />
-            : showTable
-              ? `Date: ${formatDateToDDMMYYYY(startDate)} to ${formatDateToDDMMYYYY(endDate)}`
-              : "Choose a start and end date to view attendance records."
-        }
-      </div>
+
+
       {
-        loading
+        componentLoading
           ? <div className="flex justify-center h-full items-center">
-            <Loader className="text-primary-100 w-[275px] h-[275px] border-25" />
+            <Loader className='border-primary-800' />
           </div>
-          : showTable
-            ? <div className="space-y-6 flex-1 overflow-auto pb-4 pt-6">
-              {data.map((dept) => {
-                return (
-                  <div className="px-8">
-                    <div key={dept.departmentName}>
-                      <h2 className="text-lg font-bold text-text-700 mb-2">{dept.departmentName}</h2>
-                      <div className="overflow-x-auto">
-                        <table className="min-w-full border divide-y divide-gray-200 text-sm">
-                          <thead className="bg-surface-100">
-                            <tr className="">
-                              <th className="border border-gray-200 p-2 font-medium text-gray-700">Code</th>
-                              <th className="border border-gray-200 p-2 font-medium text-gray-700">Employee</th>
-                              <th className="border border-gray-200 p-2 font-medium text-gray-700">Designation</th>
-                              {allDates.map((date) => (
-                                <th key={date} className="border border-gray-200 font-medium text-gray-700 p-2 vertical-text text-center">
-                                  {date}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {dept.employees.map((emp) => (
-                              <tr key={emp.empCode}>
-                                <td className="border border-gray-200 text-center text-sm text-gray-800">{emp.empCode}</td>
-                                <td className="border border-gray-200 p-1 text-sm text-gray-800">{emp.employeeName}</td>
-                                <td className="border border-gray-200 p-1 text-sm text-gray-800">{emp.designationName}</td>
-                                {allDates.map((date) => {
-                                  const punch = emp.punches.find(
-                                    (p: any) =>
-                                      new Date(p.date).toISOString().split("T")[0] === date
-                                  );
-                                  return (
-                                    <td key={date} className="border border-gray-200 text-sm text-gray-800 p-1 cursor-pointer hover:bg-gray-100 transition text-center">
-                                      {punch ? (
-                                        <HoverCard>
-                                          <HoverCardTrigger>
-
-                                            <div>
-                                              <div>{punch.status}</div>
-                                              <div>{Number(punch.totalHoursWorked).toFixed(2)}</div>
-                                            </div>
-                                          </HoverCardTrigger>
-                                          <HoverCardContent>
-                                            <div className="flex justify-center gap-2">
-                                              {/* Left Column (IN) */}
-                                              <div className="flex-1">
-                                                <h2 className="text-center font-bold mb-2 text-sm">IN</h2>
-                                                <div className="space-y-2">
-                                                  {punch.punches
-                                                    .filter((p) => p.type === "IN")
-                                                    .map((p) => (
-                                                      <div
-                                                        key={p._id}
-                                                        className="bg-success-100 text-sm text-success-800 p-1 rounded-md text-center shadow"
-                                                      >
-                                                        {new Date(p.time).toLocaleTimeString([], {
-                                                          hour: "2-digit",
-                                                          minute: "2-digit",
-                                                        })}
-                                                      </div>
-                                                    ))}
-                                                </div>
-                                              </div>
-
-                                              {/* Right Column (OUT) */}
-                                              <div className="flex-1">
-                                                <h2 className="font-bold text-center text-sm mb-2">OUT</h2>
-                                                <div className="space-y-2">
-                                                  {punch.punches
-                                                    .filter((p) => p.type === "OUT")
-                                                    .map((p) => (
-                                                      <div
-                                                        key={p._id}
-                                                        className="bg-warning-100 text-warning-700 text-sm p-1 rounded-md text-center shadow"
-                                                      >
-                                                        {new Date(p.time).toLocaleTimeString([], {
-                                                          hour: "2-digit",
-                                                          minute: "2-digit",
-                                                        })}
-                                                      </div>
-                                                    ))}
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </HoverCardContent>
-                                        </HoverCard>
-                                      ) : (
-                                        "-"
-                                      )}
-                                    </td>
-                                  );
-                                })}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+          :
+          <>
+            <div className="bg-surface-100 border border-gray-200 text-lg font-medium text-gray-700 -mb-0 px-8 py-2">
+              {
+                loading
+                  ? <Loader className="!w-[28px] !h-[28px]" />
+                  : showTable
+                    ? `Date: ${formatDateToDDMMYYYY(startDate)} to ${formatDateToDDMMYYYY(endDate)}`
+                    : "Choose a start and end date to view attendance records."
+              }
             </div>
-            : <div className="flex justify-center h-full items-center">
-              <ClockFading className="text-primary-100 w-[300px] h-[300px]" />
-            </div>}
+            {loading
+              ? <div className="flex justify-center h-full items-center">
+                <Loader className="text-primary-100 w-[275px] h-[275px] border-25" />
+              </div>
+              : showTable
+                ? <div className="space-y-6 flex-1 overflow-auto pb-4 pt-6">
+                  {data.map((dept) => {
+                    return (
+                      <div className="px-8">
+                        <div key={dept.departmentName}>
+                          <h2 className="text-lg font-bold text-text-700 mb-2">{dept.departmentName}</h2>
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full border divide-y divide-gray-200 text-sm">
+                              <thead className="bg-surface-100">
+                                <tr className="">
+                                  <th className="border border-gray-200 p-2 font-medium text-gray-700">Code</th>
+                                  <th className="border border-gray-200 p-2 font-medium text-gray-700">Employee</th>
+                                  <th className="border border-gray-200 p-2 font-medium text-gray-700">Designation</th>
+                                  {allDates.map((date) => (
+                                    <th key={date} className="border border-gray-200 font-medium text-gray-700 p-2 vertical-text text-center">
+                                      {date}
+                                    </th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {dept.employees.map((emp) => (
+                                  <tr key={emp.empCode}>
+                                    <td className="border border-gray-200 text-center text-sm text-gray-800">{emp.empCode}</td>
+                                    <td className="border border-gray-200 p-1 text-sm text-gray-800">{emp.employeeName}</td>
+                                    <td className="border border-gray-200 p-1 text-sm text-gray-800">{emp.designationName}</td>
+                                    {allDates.map((date) => {
+                                      const punch = emp.punches.find(
+                                        (p: any) =>
+                                          new Date(p.date).toISOString().split("T")[0] === date
+                                      );
+                                      return (
+                                        <td key={date} className="border border-gray-200 text-sm text-gray-800 p-1 cursor-pointer hover:bg-gray-100 transition text-center">
+                                          {punch ? (
+                                            <HoverCard>
+                                              <HoverCardTrigger>
+
+                                                <div>
+                                                  <div>{punch.status}</div>
+                                                  <div>{Number(punch.totalHoursWorked).toFixed(2)}</div>
+                                                </div>
+                                              </HoverCardTrigger>
+                                              <HoverCardContent>
+                                                <div className="flex justify-center gap-2">
+                                                  {/* Left Column (IN) */}
+                                                  <div className="flex-1">
+                                                    <h2 className="text-center font-bold mb-2 text-sm">IN</h2>
+                                                    <div className="space-y-2">
+                                                      {punch.punches
+                                                        .filter((p) => p.type === "IN")
+                                                        .map((p) => (
+                                                          <div
+                                                            key={p._id}
+                                                            className="bg-success-100 text-sm text-success-800 p-1 rounded-md text-center shadow"
+                                                          >
+                                                            {new Date(p.time).toLocaleTimeString([], {
+                                                              hour: "2-digit",
+                                                              minute: "2-digit",
+                                                            })}
+                                                          </div>
+                                                        ))}
+                                                    </div>
+                                                  </div>
+
+                                                  {/* Right Column (OUT) */}
+                                                  <div className="flex-1">
+                                                    <h2 className="font-bold text-center text-sm mb-2">OUT</h2>
+                                                    <div className="space-y-2">
+                                                      {punch.punches
+                                                        .filter((p) => p.type === "OUT")
+                                                        .map((p) => (
+                                                          <div
+                                                            key={p._id}
+                                                            className="bg-warning-100 text-warning-700 text-sm p-1 rounded-md text-center shadow"
+                                                          >
+                                                            {new Date(p.time).toLocaleTimeString([], {
+                                                              hour: "2-digit",
+                                                              minute: "2-digit",
+                                                            })}
+                                                          </div>
+                                                        ))}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </HoverCardContent>
+                                            </HoverCard>
+                                          ) : (
+                                            "-"
+                                          )}
+                                        </td>
+                                      );
+                                    })}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                : <div className="flex justify-center h-full items-center">
+                  <ClockFading className="text-primary-100 w-[300px] h-[300px]" />
+                </div>}
+          </>
+      }
     </div>
   );
 };
