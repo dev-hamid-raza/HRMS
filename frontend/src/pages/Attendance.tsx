@@ -20,7 +20,7 @@ const AttendanceTables = () => {
     department: '',
     empType: ''
   })
-  const [showTable, setShowTable] = useState(false)
+  const [showTable, setShowTable] = useState(true)
   const [loading, setLoading] = useState(false)
   const [componentLoading, setComponentLoading] = useState(true)
   const startDate = "2025-07-01";
